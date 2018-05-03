@@ -75,3 +75,47 @@ ElementType Median( ElementType A[], int N ){
     Sort(A, N);
     return A[N/2];
 }
+
+/*
+本来是因为要判断如果a==b返回0的,但是严格来说,两个double数是不可能相等的,只能说fabs(a-b)<1e-20之类的这样来判断,所以这里只返回了1和-1
+//http://www.cnblogs.com/ForeverJoker/archive/2013/05/25/qsort-sort.html
+//http://www.cnblogs.com/sjy123/p/3287817.html
+
+ */
+//有几个测试点是错误。
+
+#include <stdio.h>
+ 
+#define MAXN 10
+typedef float ElementType;
+ 
+ElementType Median( ElementType A[], int N );
+ 
+int main ()
+{
+    ElementType A[MAXN];
+    int N, i;
+ 
+    scanf("%d", &N);
+    for ( i=0; i<N; i++ )
+        scanf("%f", &A[i]);
+    printf("%.2f\n", Median(A, N));
+     
+    return 0;
+}
+ 
+/* 你的代码将被嵌在这里 */
+ 
+#include <stdlib.h>
+ 
+int Cmp(const void *a, const void *b)
+{   //sub float numbers directly may cause problems.
+    //replace int cmp rules
+    return (*(ElementType*)a)>(*(ElementType*)b)?-1:1;//降序
+}
+ 
+ElementType Median(ElementType A[],int N)
+{
+    qsort(A,N,sizeof(ElementType),Cmp);
+    return A[N/2];
+}
