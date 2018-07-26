@@ -1,0 +1,78 @@
+给出一个图的结构，输出其拓扑排序序列，要求在同等条件下，编号小的顶点在前。
+
+用小顶堆(优先队列)实现.
+
+priority_queue<int, vector<int>, greater<int> > Q;//从小到大的优先级队列，可将greater改为less，即为从大到小
+ 样例如下:
+
+6 8
+1 2
+1 3
+1 4
+3 2
+3 5
+4 5
+6 4
+6 5
+
+v1 v3 v2 v6 v4 v5
+
+分析:如果不用优先队列V6肯定会排在V3前面的.用了优先队列,V3插队了.
+AC
+
+
+#include<cstdio>
+#include<queue>
+#include<vector>
+#include<algorithm>
+using namespace std;
+vector<int>list[500];
+int indegree[500];
+
+priority_queue<int,vector<int>,greater<int> > Q; 
+queue<int> res;
+int main(){
+    int n,m;
+    scanf("%d %d",&n,&m);
+    fill(indegree+1,indegree+1+n,0);
+    for(int i=1;i<=n;i++) list[i].clear();
+    int u,v;
+    for(int i=0;i<m;i++){
+        scanf("%d %d",&u,&v);
+        indegree[v]++;
+        list[u].push_back(v);
+    }
+    while(!Q.empty()){Q.pop();}
+    for(int i=1;i<=n;i++){
+        if(indegree[i]==0){
+            Q.push(i);
+        }
+    }
+    //Q存放度为0的点
+    int cnt=0;
+    while(!res.empty()){res.pop();}
+    while(!Q.empty()){
+        int firstp=Q.top(); //优先队列改成top 
+        res.push(firstp);
+        cnt++;
+        Q.pop();
+        for(int i=0;i<list[firstp].size();i++){
+            indegree[list[firstp][i]]--;
+            if(indegree[list[firstp][i]]==0){
+                Q.push(list[firstp][i]);
+            }
+        }
+    } 
+    if(cnt==n){          //DAG
+        for(int i=0;i<n;i++){
+            int tmp=res.front();
+            res.pop();
+            if(i==0){
+                printf("v%d",tmp);
+            }
+            else printf(" v%d",tmp);
+        } 
+    }
+    else puts("No DAG");
+    return 0;
+}

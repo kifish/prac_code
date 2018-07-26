@@ -1,2 +1,1 @@
-# javaprac
--algs4
+practice
