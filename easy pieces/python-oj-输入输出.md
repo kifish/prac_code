@@ -20,3 +20,6 @@ s.strip()
 print(s)
 ```
 
+也可以参考这个：
+https://github.com/EINDEX/Python-algorithm/blob/master/algorithm/test/test_sort.py
+写下单元测试。
