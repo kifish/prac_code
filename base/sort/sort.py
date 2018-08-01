@@ -113,7 +113,8 @@ def wrong_shell_sort(arr):
     while h >= 1:
         for i in range(n-1, (n-1-h+1)-1,-1):
             j = i
-            # 只做了一次冒泡,并没有对子序列进行完整的冒泡排序
+            # 只做了一次遍历,并没有对子序列进行完整的冒泡排序
+            # 实际上这次遍历既不是插入也不是冒泡
             while j >= h and a[j] < a[j-h]:
                 a[j-h], a[j] = a[j], a[j-h]
                 j -= h
@@ -203,5 +204,5 @@ if __name__ == '__main__':
     print(insert_sort(test))
     print(shell_sort(test))
     print(shell_sort2(test))
-
     print(quicksort(test))
+    

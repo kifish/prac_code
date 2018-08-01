@@ -1,4 +1,6 @@
 
+
+/*
 int FactorialSum(List L)
 {    int sum = 0;
     int i,n;
@@ -11,7 +13,7 @@ int FactorialSum(List L)
     }
     return sum;
 }
-//这里没有考虑到 0！=1 的情况。
+//这里没有考虑到 0!=1 的情况。
 
 int FactorialSum(List L)
 {    int sum = 0;
@@ -24,3 +26,4 @@ int FactorialSum(List L)
     }
     return sum;
 }
+*/
