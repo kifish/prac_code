@@ -1,4 +1,131 @@
+
+
+
+
+
+
+```python
+
+class Stack(object):
+    def __init__(self,size = 8):
+        self.stack = []
+        self.size = size
+        self.top = -1
+
+    def set_size(self,size):
+        if self.top > size -1:
+            raise Exception("StackWillOverflow")
+        self.size = size
+
+    def isFull(self):
+        return True if self.size -1 == self.top else False
+    def isEmpty(self):
+        return True if self.top == -1 else False
+
+    def push(self,data):
+        if self.isFull():
+            raise Exception("StackOverflow")
+        self.stack.append(data)
+        self.top += 1
+
+    def pop(self):
+        if self.isEmpty():
+            raise Exception("StackUnderflow")
+        self.top -= 1
+        return self.stack.pop()
+
+    def top(self):
+        if self.isEmpty():
+            raise Exception("StackUnderflow")
+        return self.stack[self.top]
+
+    def show(self):
+        if self.isEmpty():
+            return
+        print(self.stack)
+
+if __name__ == "__main__":
+    s = Stack()
+    for i in range(8):
+        s.push(i)
+
+    print(s.pop())
+    print(s.pop())
+    s.top()
+    #TypeError: 'int' object is not callable
+    #python解释器误认为是s.top即self.top的那个值
+    s.show()
+
+
 ```
+
+
+
+
+
+```python
+class Stack(object):
+    def __init__(self,size = 8):
+        self.stack = []
+        self.size = size
+        self.top = -1
+
+    def set_size(self,size):
+        if self.top > size -1:
+            raise Exception("StackWillOverflow")
+        self.size = size
+
+    def isFull(self):
+        return True if self.size -1 == self.top else False
+    def isEmpty(self):
+        return True if self.top == -1 else False
+
+    def push(self,data):
+        if self.isFull():
+            raise Exception("StackOverflow")
+        self.stack.append(data)
+        self.top += 1
+
+    def pop(self):
+        if self.isEmpty():
+            raise Exception("StackUnderflow")
+        self.top -= 1
+        return self.stack.pop()
+
+    def get_top(self):
+        if self.isEmpty():
+            raise Exception("StackUnderflow")
+        return self.stack[self.top]
+
+    def show(self):
+        if self.isEmpty():
+            return
+        print(self.stack)
+
+if __name__ == "__main__":
+    s = Stack()
+    for i in range(8):
+        s.push(i)
+
+    print(s.pop())
+    print(s.pop())
+    print(s.get_top())
+    s.show()
+"""
+7
+6
+5
+[0, 1, 2, 3, 4, 5]
+
+"""
+```
+
+
+
+
+
+
+```python
 class Stack:
     def __init__(self):
         self.items = []
