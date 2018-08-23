@@ -195,8 +195,6 @@ double val[MAXVAL]; /* value stack */
 #include <ctype.h>
 #include "calc.h"
 
-int getch(void);
-void ungetch(int);
 /* getop: get next character or numeric operand */
 int getop(char s[]){
     int i, c;
@@ -240,6 +238,147 @@ void ungetch(int c){
 ```
 
 
+
+
+```C
+/* qsort: sort v[left]...v[right] into increasing order */
+// 空间复杂度O(N)
+void qsort(int v[], int left, int right){
+    int i, last;
+    void swap(int v[], int i, int j); 
+    if(left >= right) /* do nothing if array contains */
+        return; /* fewer than two elements */
+    swap(v, left, (left + right)/2); /* move partition elem */
+    last = left; /* to v[0] */
+    for (i = left + 1; i <= right; i++) /* partition */
+        if(v[i] < v[left])
+            swap(v, ++last, i);
+    swap(v, left, last); /* restore partition elem */
+    qsort(v, left, last-1);
+    qsort(v, last+1, right);
+}
+
+/* swap: interchange v[i] and v[j] */
+void swap(int v[], int i, int j){
+    int temp = v[i];
+    v[i] = v[j];
+    v[j] = temp;
+} 
+
+
+
+
+
+```C
+#define ALLOCSIZE 10000 /* size of available space */
+static char allocbuf[ALLOCSIZE]; /* storage for alloc */
+static char *allocp = allocbuf; /* next free position */
+/* return pointer to n characters */
+
+char *alloc(int n){
+    if (allocbuf + ALLOCSIZE - allocp >= n) { /* it fits */
+        allocp += n;
+        return allocp - n; /* old p */
+    } else /* not enough room */
+        return 0;
+    }
+
+/* free storage pointed to by p */
+void afree(char *p){
+    if (p >= allocbuf && p < allocbuf + ALLOCSIZE)
+    allocp = p;
+}
+
+```
+
+
+
+
+
+多个字符串排序
+```C
+#include <stdio.h>
+#include <string.h>
+#define MAXLINES 5000  /* max #lines to be sorted */
+char *lineptr[MAXLINES]; /* pointers to text lines */
+//数组lineptr存放的是指针，对某个指针进行*操作,得到对应变量是char类型的。
+//指针本身就是变量，这些指针里面存放了指向的变量的地址。
+//在这个问题中，这些指针存放的地址是字符串的起始地址
+int readlines(char *lineptr[], int nlines);
+void writelines(char *lineptr[], int nlines);
+void qsort(char *lineptr[], int left, int right);
+/* sort input lines */
+main(){
+    int nlines; /* number of input lines read */
+    if ((nlines = readlines(lineptr, MAXLINES)) >= 0) {
+        qsort(lineptr, 0, nlines-1);
+        writelines(lineptr, nlines);
+        return 0;
+    } 
+    else {
+        printf("error: input too big to sort\n");
+        return 1;
+    }
+}
+
+#define MAXLEN 1000 /* max length of any input line */
+int getline(char *, int);
+char *alloc(int);
+/* readlines: read input lines */
+int readlines(char *lineptr[], int maxlines){
+    int len, nlines;
+    char *p, line[MAXLEN];
+    nlines = 0;
+    while ((len = getline(line, MAXLEN)) > 0)
+        if (nlines >= maxlines || p = alloc(len) == NULL)
+            return -1;
+        else{ 
+            line[len-1] = '\0'; /* delete newline */
+            strcpy(p, line);
+            lineptr[nlines++] = p;
+        }
+    return nlines;
+}
+
+/* writelines: write output lines */
+void writelines(char *lineptr[], int nlines){
+    int i;
+    for (i = 0; i < nlines; i++)
+        printf("%s\n", lineptr[i]);
+} 
+
+/* qsort: sort v[left]...v[right] into increasing order */
+void qsort(char *v[], int left, int right){
+    int i, last;
+    //循环不变量:
+    //last 始终是 小于pivot 的元素的集合的 顺序排列的 最后一个元素的 index
+    void swap(char *v[], int i, int j);
+    if (left >= right) /* do nothing if array contains */
+        return; /* fewer than two elements */
+    swap(v, left, (left + right)/2);
+    last = left;
+    for (i = left+1; i <= right; i++)
+        if (strcmp(v[i], v[left]) < 0)
+            swap(v, ++last, i);
+    swap(v, left, last);
+    //这一步后,0,1,...,last-1(th)元素都是 小于pivot的
+    //last (th) 为pivot
+    qsort(v, left, last-1); 
+    qsort(v, last+1, right);
+}
+
+/* swap: interchange v[i] and v[j] */
+void swap(char *v[], int i, int j){
+    char *temp;
+    temp = v[i];
+    v[i] = v[j];
+    v[j] = temp;
+} 
+
+
+
+
+```
 references:
 the c programming language
 
