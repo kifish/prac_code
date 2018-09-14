@@ -6,48 +6,57 @@ from collections import deque
 class BST():
 
     class Node():
-        def __init__(self, val=-1):
-            self.val = val
+        def __init__(self, key=-1,val = -1):
+            self.key = key
+            self.val = val 
             self.left = None
             self.right = None
-            self.times = 1
+            # count of subtrees 
+            # self.count = ?
 
         def __str__(self):
-            return str(self.val)
+            return str(self.key)
 
     def __init__(self):
         self.root = None
+    # put
+    def insert(self, key, val):
+        """
+        如果是相同的key，且发生了替换掉value，则会出现问题：简单的self.times配合排序就有问题了。
+        """
+        self.root = self.insert_(self.root, key, val)
 
-    def insert(self, val):
-        self.root = self.insert_(self.root, val)
-
-    def insert_(self, parent_node, val):
+    def insert_(self, parent_node, key, val):
         """
         由于需要排序，因此相同的数值也需要保留。
         """
         if parent_node == None:
-            return self.Node(val)
+            return self.Node(key,val)
 
-        if val < parent_node.val:
-            parent_node.left = self.insert_(parent_node.left, val)
-        elif val > parent_node.val:
-            parent_node.right = self.insert_(parent_node.right, val)
+        if key < parent_node.key:
+            parent_node.left = self.insert_(parent_node.left, key,val)
+        elif key > parent_node.key:
+            parent_node.right = self.insert_(parent_node.right, key, val)
         else:
-            parent_node.times += 1
+            parent_node.val = val 
 
         return parent_node
-
-    def search(self, val):
+    # get 
+    def search(self, key):
         cur = self.root
         while cur:
-            if val < cur.val:
+            if key < cur.key:
                 cur = cur.left
-            elif val > cur.val:
+            elif key > cur.key:
                 cur = cur.right
             else:
-                return 'found'
+                return cur.val 
         raise KeyError
+    def delete(self,key):
+        pass 
 
+
+    # 也可以用yield 来实现 java中iterable
     def show(self):
         # 层序遍历
         q = deque()
@@ -56,7 +65,7 @@ class BST():
         while q:
             cur = q.popleft()
             for _ in range(cur.times):
-                print(cur.val, end=' ')
+                print(cur.key, end=' ')
             if cur.left:
                 q.append(cur.left)
             if cur.right:
@@ -69,7 +78,7 @@ class BST():
         2. 非None，未operated，
             则把cur.left 加入队列
         3. 非None,operated,
-            则处理cur.val (相等于 局部的根)
+            则处理cur.key (相等于 局部的根)
             并把cur.right 加入队列
         """
         q = deque()
@@ -83,7 +92,7 @@ class BST():
                 q.appendleft(cur.left)
             elif (cur.left and cur.left in operated) or not cur.left:
                 for _ in range(cur.times):
-                    res.append(cur.val)
+                    res.append(cur.key)
                 operated.append(q.popleft())
                 if cur.right:
                     q.appendleft(cur.right)
