@@ -302,7 +302,7 @@ void afree(char *p){
 #define MAXLINES 5000  /* max #lines to be sorted */
 char *lineptr[MAXLINES]; /* pointers to text lines */
 //数组lineptr存放的是指针，对某个指针进行*操作,得到对应变量是char类型的。
-//指针本身就是变量，这些指针里面存放了指向的变量的地址。
+//指针本身就是变量，这些指针里面存放了指向的(另外的)变量的地址。
 //在这个问题中，这些指针存放的地址是字符串的起始地址
 int readlines(char *lineptr[], int nlines);
 void writelines(char *lineptr[], int nlines);
