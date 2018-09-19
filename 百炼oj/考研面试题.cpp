@@ -1,6 +1,6 @@
 
-A:陶陶摘苹果
-复制代码
+// A:陶陶摘苹果
+
 #include<cstdio>
 #include<string>
 #include<cstring>
@@ -20,9 +20,9 @@ int main(){
     return 0;
 
 }
-复制代码
-B:肿瘤面积
-复制代码
+
+// B:肿瘤面积
+
 #include<cstdio>
 int map[1005][1005];
 

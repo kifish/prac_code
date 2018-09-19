@@ -1,6 +1,6 @@
-http://cs101.openjudge.cn/practice/12560/
+// http://cs101.openjudge.cn/practice/12560/
 
-样例的结果是对的，但是WA,还没找到原因
+// 样例的结果是对的，但是WA,还没找到原因
 
 #include<cstdio>
 int map[105][105];
