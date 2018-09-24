@@ -1,4 +1,16 @@
 
+
+
+# visual studio
+*.user
+*.filters
+*.vcxproj
+*.sln
+*.json
+*.vs
+
+
+
 .DS_Store
 .vscode
 
