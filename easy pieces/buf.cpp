@@ -1,87 +1,48 @@
-#include <cstdio>
-#include <string>
-#include <iostream>
-#include <cstring>
-#include <algorithm>
-#include <vector>
-#include <stack>
-using namespace std;
-vector<int> line;
-stack<int> s;
 
-int judge(vector<int> line, int n) {
-	int pre = 0;
-	int start = 0;
-	bool decreasing = false;
-	if (n == 1) {
-		if (line[0] == 1)
-			return true;
-		else
-			return false;
+#include <stdio.h>
+#include<ctype.h>
+#include<string.h>
+#define MAXWORD 100
+struct tnode *addtree(struct tnode *,char *);
+void treeprint(struct tnode*);
+int getword(char *,int);
+struct tnode{
+	char *word;
+	int count;
+	struct tnode *left;
+	struct tnode *right;
+};
+//word frequency count
+main(){
+	struct tnode *root;
+	char word[MAXWORD];
+	root = NULL;
+	while(getword(word,MAXWORD) != EOF){
+		if(isalpha(word[0]))
+			root = addtree(root,word);
 	}
-	pre = line[0];
-	int i = 1;
-	for (; i < line.size(); i++) {
-		if (line[i] < pre) {
-			if (line[i] == pre - 1) {
-				if (decreasing)
-					continue;
-				else {
-					decreasing = true;
-					start = i - 1;
-				}
-			}
-			else {
-				if (decreasing) {
-					decreasing = !decreasing;
-					reverse(line.begin() + start, line.begin() + i);
-				}
-			}
-		}
-		pre = line[i];
-	}
-	if (decreasing)
-		reverse(line.begin() + start, line.begin() + i);
-	int one_idx = 0;
-	for (int i = 0; i < line.size(); i++) {
-		if (line[i] == 1)
-			one_idx = i;
-	}
-	int num = 1;
-	while (num <= n) {
-		if (line[(one_idx + num - 1) % n] == num) {
-			num++;
-		}
-		else
-			return false;
-	}
-	return true;
-}
-
-/*
- 合法的出栈序列是很多的，无法穷举。
- 只能模拟。
- */
-int main() {
-	int t;
-	cin >> t;
-	while (t--) {
-		int n;
-		cin >> n;
-		line.clear();
-
-		int tmp;
-		int tmp2 = n;
-		while (tmp2--) {
-			cin >> tmp;
-			line.push_back(tmp);
-		}
-		if (judge(line, n)) {
-			cout << "yes" << endl;
-		}
-		else {
-			cout << "no" << endl;
-		}
-	}
+	treeprint(root);
 	return 0;
 }
+struct tnode *talloc(void);
+char *strdup(char *);
+//addtree: add a node with w,at or below p
+
+struct treenode *addtree(struct tnode *p,char *w){
+	int cond;
+	if(p == NULL){
+		p = talloc();
+		p->word = strdup(w);
+		p->count = 1;
+		p->left = p->right = NULL;
+	}
+	else if((cond = strcmp(w,p->word)) == 0){
+		p->count++;
+	}
+	else if(cond < 0)
+		p->left = addtree(p->left,w);
+	else
+		p->right = addtree(p->right,w);
+	return p;
+}
+
