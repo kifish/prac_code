@@ -379,6 +379,225 @@ void swap(char *v[], int i, int j){
 
 
 ```
+
+
+
+```C
+#include<stdio.h>
+#include<string.h>
+#define MAXLINE 1000
+
+int getline(char *line, int max);
+
+
+//It is rare that one uses pointer expressions 
+//more complicated than these; in such cases,
+//breaking them into two or three steps will be more intuitive.
+//find:print lines that match pattern from 1st arg
+main(int argc, char *argv[]) {
+	char line[MAXLINE];
+	long lineno = 0;
+	int c, except = 0, number = 0, found = 0;
+	while (--argc > 0 && (*++argv)[0] == '-') { // 下一个字符串
+		while (c = *++argv[0]) { // 下一个字符
+			switch (c){
+			case 'x':
+				except = 1;
+				break;
+			case'n':
+				number = 1;
+				break;
+			default:
+				printf("find: illegal option %c\n", c);
+				argc = 0;
+				found = -1;
+				break;//default 加break，是为了避免以后添加新case的时候，忘记加break
+			}
+		}
+		if (argc != 1)
+			printf("Usage: find -x -n pattern\n");
+		else 
+			while (getline(line, MAXLINE) > 0) {
+				lineno++;
+				if ((strstr(line, *argv) != NULL) != except) {
+					if (number) 
+						printf("%ld:", lineno);
+					printf("%s", line);
+					found++;
+				}
+			}
+	}
+}
+```
+
+
+```C
+#include<cstdio>
+#include<cstring>
+#include<cstdlib>
+#define MAXLINES 5000
+char *lineptr[MAXLINES];
+int readlines(char *lineptr[], int nlines);
+void writelines(char *lineptr[], int nlines);
+
+void qsort(void *lineptr[], int left, int right, int(*comp)(void *, void *));
+int numcmp(char *, char *);
+main(int argc, char *argv[]) {
+	int nlines;
+	int numeric = 0;
+	if (argc > 1 && strcmp(argv[1], "-n") == 0)
+		numeric = 1;
+	if ((nlines = readlines(lineptr, MAXLINES)) >= 0) {
+		qsort((void**)lineptr, 0, nlines - 1, (int (*)(void*, void*))(numeric ? numcmp : strcmp));
+		writelines(lineptr, nlines);
+		return 0;
+	}
+	else {
+		printf("input too big to sort\n");
+		return 1;
+	}
+}
+
+//qsort : sort v[left],...v[right] into increasing order
+void qsort(void *v[], int left, int right, int(*comp)(void *, void *)) {
+	int i, last;
+	void swap(void *v[], int, int);
+	if (left >= right)
+		return;
+	swap(v, left, (left + right) / 2);
+	last = left;
+	for (int i = left + 1; i <= right; i++) {
+		if ((*comp)(v[i], v[left]) < 0)
+			swap(v, ++last, i);
+	}
+	swap(v, left, last);
+	qsort(v, left, last - 1, comp);//comp 相当于函数的起始地址
+	qsort(v, last + 1, right, comp);
+	//return;
+}
+
+//numcmp:compare s1 and s2 numerically
+int numcmp(char *s1, char *s2) {
+	double v1, v2;
+	v1 = atof(s1);
+	v2 = atof(s2);
+	if (v1 < v2)
+		return -1;
+	else if (v1 > v2)
+		return 1;
+	return 0;
+}
+
+void swap(void *v[], int i, int j) {
+	void *temp;
+	temp = v[i];
+	v[i] = v[j];
+	v[j] = temp;
+}
+
+
+
+```
+
+
+```c
+
+struct point {
+	int x;
+	int y;
+}x,y,z;
+
+struct point pt;
+struct maxpt = { 320,200 };
+
+struct rect {
+	struct point pt1;
+	struct point pt2;
+};
+
+struct rect screen;
+//screen.pt1.x
+
+
+struct point makepoint(int x, int y) {
+	struct point temp;
+	temp.x = x;
+	temp.y = y;
+	return temp;
+}
+
+struct point middle;
+struct point makepoint(int, int);
+screen.pt1 = makepoint(0, 0);
+screen.pt2 = makepoint(XMAX, YMAX);
+
+middle = makepoint((screen.pt1.x + screen.pt2.x) / 2, (screen.pt1.y + screen.pt2.y) / 2);
+
+
+//值传递
+addpoint(struct point p1, struct point p2) {
+	p1.x += p2.x;
+	p1.y += p2.y;
+	return p1;
+}
+
+//ptinrect:return 1 if p in r,0 if not
+int ptinrect(struct point p, struct rect r) {
+	return p.x >= r.pt1.x && p.x <= r.pt2.x && p.y >= r.pt1.y && p.y <= r.pt2.y;
+}
+
+#define min(a,b) ((a) < (b) ? (a) : (b))
+#define max(a,b) ((a) > (b) ? (a) : (b))
+
+
+struct rect canonrect(struct rect r) {
+	struct rect temp;
+	temp.pt1.x = min(r.pt1.x, r.pt2.x);
+	temp.pt1.y = min(r.pt1.y, r.pt2.y);
+	temp.pt2.x = max(r.pt1.x, r.pt2.x);
+	temp.pt2.y = max(r.pt1.y, r.pt2.y);
+	return temp;
+}
+
+
+struct point origin, *pp;
+pp = &origin;
+printf("origin is (%d,%d)\n", (*pp).x, (*pp).y);
+printf("origin is (%d,%d)\n", pp->x, pp->y);
+
+struct rect r, *rp = &r;
+
+
+struct key {
+	char *word;
+	int count;
+}keytab[NKEYS];
+
+struct key keytab2[NKEYS];
+
+struct key {
+	char *word;
+	int count;
+}keytab2[] = {
+	"auto",0,
+	"break",0,
+	"while",0
+};
+
+
+struct key {
+	char *word;
+	int count;
+}keytab2[] = {
+	{"auto",0},
+	{"break",0},
+	{"while",0}
+};
+
+```
+
+
+
 references:
 the c programming language
 
