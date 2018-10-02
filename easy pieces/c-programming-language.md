@@ -596,8 +596,308 @@ struct key {
 
 ```
 
+```c
+
+#include<ctype.h>
+//getword:get next word or character from input
+int getword(char *word,int lim){
+	int c,getch(void);
+	void ungetch(int);
+	char *w = word;
+	while(isspace(c = getch()));
+	if(c != EOF)
+		*w++ = c;
+	if(!isalpha(c)){
+		*w = '\0';
+		return c;
+	}
+	for(;--lim>0;w++){
+		if(!isalum(*w = getch())){
+			ungetch(*w);
+			break;
+		}
+	}
+	*w = '\0';
+	return word[0];
+}
+
+```
 
 
+
+
+```C
+#include<stdio.h>
+#include<ctype.h>
+#include<string.h>
+#define MAXWORD 100
+int getword(char *，int);
+struct key *binsearch(char *,struct key *,int);
+//count C keywords;pointer version
+main(){
+	char word[MAXWORD];
+	struct key *p;
+	while(getword(word,MAXWORD) != EOF){
+		if(isalpha(word[0]))
+			if((p = binsearch(word,keytab,NKEYS) != EOF)){
+				p->count++;
+			}
+	}
+	for(p = keytab;p< keytab + NKEYS;p++){
+		if(p->count > 0)
+			printf("%4d %s\n",p->count,p->word);
+	}
+	return 0;
+}
+
+//binsearch:find word in tab[0],...,tab[n-1]
+struct key *binsearch(char *word,struct key *tab,int n){
+	int cond;
+	struct key *low = &tab[0];
+	struct key *high = &tab[n];
+	struct key *mid;
+	while(low < high){
+		mid = low + (high-low)/2;
+		if((cond = strcmp(word,mid->word)<0)
+			high = mid;
+		else if (cond > 0)
+			low = mid  + 1;
+		else 
+			return mid;
+	}
+	return NULL;
+}
+```
+
+
+
+
+```c
+
+#include <stdio.h>
+#include<ctype.h>
+#include<string.h>
+#define MAXWORD 100
+struct tnode *addtree(struct tnode *,char *);
+void treeprint(struct tnode*);
+int getword(char *,int);
+struct tnode{
+	char *word;
+	int count;
+	struct tnode *left;
+	struct tnode *right;
+};
+//word frequency count
+main(){
+	struct tnode *root;
+	char word[MAXWORD];
+	root = NULL;
+	while(getword(word,MAXWORD) != EOF){
+		if(isalpha(word[0]))
+			root = addtree(root,word);
+	}
+	treeprint(root);
+	return 0;
+}
+struct tnode *talloc(void);
+char *strdup(char *);
+//addtree: add a node with w,at or below p
+
+struct treenode *addtree(struct tnode *p,char *w){
+	int cond;
+	if(p == NULL){
+		p = talloc();
+		p->word = strdup(w);
+		p->count = 1;
+		p->left = p->right = NULL;
+	}
+	else if((cond = strcmp(w,p->word)) == 0){
+		p->count++;
+	}
+	else if(cond < 0)
+		p->left = addtree(p->left,w);
+	else
+		p->right = addtree(p->right,w);
+	return p;
+}
+//treeprint: in-order print if tree p
+void treeprint(struct tnode *p){
+	if(p != NULL){
+		treeprint(p->left);
+		printf("%4d %s\n",p->count,p->word);
+		treeprint(p->right);
+	}
+}
+
+
+//talloc:make a tnode
+struct tnode *talloc(void){
+	return (struct tnode *) malloc(sizeof(struct tnode));
+}
+
+
+char *strdup(char *s){
+	char *p;
+	p = (char *) malloc(strlen(s) + 1);// +1 for '\0'
+	if(p != NULL)
+		strcpy(p,s);
+	return p;
+}
+
+```
+
+
+```c
+struct nlist{	//table entry
+	struct nlist *next; //next entry in chain
+	char *name;  // defined name
+	char *defn;   //replacement text
+}
+
+#define HASHSIZE 101
+static struct nlist *hashtab[HASHSIZE]; //pointer table
+//hash:form hash value for string s
+unsigned hash(char *s){
+	unsigned hashval;
+	for(hashval = 0;*s != '\0';s++){
+		hashval = *s + 31 * hashval;
+	}
+	return hashval % HASHSIZE;
+}
+
+//lookup:look for s in hashtab
+struct nlist *lookup(char *s){
+	struct nlist *np;
+	for(np = hashtab[hash[s]];np != NULL;np = np->next){
+		if(strcmp(s,np->name) == 0)
+			return np;
+	}
+	return NULL;
+}
+
+//for(ptr = head;ptr != NULL;ptr = ptr->next)
+
+struct nlist *lookup(char *);
+char *strup(char *);
+
+//install:put (name,defn) in hashtab
+struct nlist *install(char *name,char *defn){
+	struct nlist *np;
+	unsigned hashval;
+	if((np = lookup(name) == NULL)){
+		np = (struct nlist *) malloc(sizeof(*np));
+		if(np == NULL || (np->name = strdup(name)) == NULL)
+			return NULL;
+		hashval = hash(name);
+		np->next = hashtab[hashval];
+		hashtab[hashval] = np;
+	}
+	else 
+		free((void *) np->defn);
+	if((np->defn = strup(defn)) == NULL)
+		return NULL;
+	return np;
+}
+
+
+
+
+```
+
+typedef
+
+```c
+
+typedef int Length;
+Length len,maxlen;
+Length *lengths[];
+
+typedef char *String;
+String p,lineptr[MAXLINES],alloc(int);
+int strcmp(String,String);
+p = (String) malloc(100); //100 个bytes
+
+typedef struct tnode *Treeptr;
+typedef struct tnode{ // the tree node
+    char *word;
+    int count;
+    struct tnode *left;
+    struct tnode *right;
+}Treenode;
+
+//Treenode, a structure
+//Treeptr, a pointer to the structure
+
+Treeptr talloc(void){
+    return (Treeptr) malloc(sizeof(Treenode));
+}
+
+typedef int (*PFI)(char *,char *);
+PFI strcmp,numcmp;
+
+
+```
+
+
+```c
+
+
+union u_tag{
+	int ival;
+	float fval;
+	char *sval;
+}u;
+//union 的存储空间是最大类型所需的空间
+
+
+//使用union的时候 只能把他始终对待成同一种类型
+
+if(utype == INT)
+	printf("%d\n",u.ival);
+if(utype == FLOAT)
+	printf("%f\n",u.fval);
+if(utype == STRING)
+	printf("%s\n",u.sval);
+else 
+	printf("bad type %d in utype\n",utype);
+
+
+
+#define KEYWORD 01
+#define EXTERNAL 02
+#define STATIC 04
+
+enum {KEYWORD = 01,EXTERNAL = 02,STATIC = 04};
+
+flags |= EXTERNAL | STATIC;
+//turns on the EXTERNAL and STATIC bit in flags,while
+flags &= ~(EXTERNAL | STATIC);
+//turns them off
+
+if((flags & (EXTERNAL | STATIC)) == 0)
+//is true if both bits are off
+
+
+//more naturally
+//bitfield
+struct{
+	unsigned int is_keyword : 1;
+	unsigned int is_extern : 1;
+	unsigned int is_extern : 1;
+}flags;
+//This defines a variable table called flags that contains three 1 - bit fields.
+//The number following the colon represents the field width in bits.
+//The fields are declared unsigned intto ensure that they are unsigned quantities.
+
+flags.is_extern = flags.is_static = 1;
+flags.is_extern = flags.is_static = 0;
+
+if(flags.is_extern == 0 && flags.is_static == 0)
+
+
+
+
+```
 references:
 the c programming language
 
