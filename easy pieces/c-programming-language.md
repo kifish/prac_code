@@ -379,6 +379,840 @@ void swap(char *v[], int i, int j){
 
 
 ```
+
+
+
+```C
+#include<stdio.h>
+#include<string.h>
+#define MAXLINE 1000
+
+int getline(char *line, int max);
+
+
+//It is rare that one uses pointer expressions 
+//more complicated than these; in such cases,
+//breaking them into two or three steps will be more intuitive.
+//find:print lines that match pattern from 1st arg
+main(int argc, char *argv[]) {
+	char line[MAXLINE];
+	long lineno = 0;
+	int c, except = 0, number = 0, found = 0;
+	while (--argc > 0 && (*++argv)[0] == '-') { // 下一个字符串
+		while (c = *++argv[0]) { // 下一个字符
+			switch (c){
+			case 'x':
+				except = 1;
+				break;
+			case'n':
+				number = 1;
+				break;
+			default:
+				printf("find: illegal option %c\n", c);
+				argc = 0;
+				found = -1;
+				break;//default 加break，是为了避免以后添加新case的时候，忘记加break
+			}
+		}
+		if (argc != 1)
+			printf("Usage: find -x -n pattern\n");
+		else 
+			while (getline(line, MAXLINE) > 0) {
+				lineno++;
+				if ((strstr(line, *argv) != NULL) != except) {
+					if (number) 
+						printf("%ld:", lineno);
+					printf("%s", line);
+					found++;
+				}
+			}
+	}
+}
+```
+
+
+```C
+#include<cstdio>
+#include<cstring>
+#include<cstdlib>
+#define MAXLINES 5000
+char *lineptr[MAXLINES];
+int readlines(char *lineptr[], int nlines);
+void writelines(char *lineptr[], int nlines);
+
+void qsort(void *lineptr[], int left, int right, int(*comp)(void *, void *));
+int numcmp(char *, char *);
+main(int argc, char *argv[]) {
+	int nlines;
+	int numeric = 0;
+	if (argc > 1 && strcmp(argv[1], "-n") == 0)
+		numeric = 1;
+	if ((nlines = readlines(lineptr, MAXLINES)) >= 0) {
+		qsort((void**)lineptr, 0, nlines - 1, (int (*)(void*, void*))(numeric ? numcmp : strcmp));
+		writelines(lineptr, nlines);
+		return 0;
+	}
+	else {
+		printf("input too big to sort\n");
+		return 1;
+	}
+}
+
+//qsort : sort v[left],...v[right] into increasing order
+void qsort(void *v[], int left, int right, int(*comp)(void *, void *)) {
+	int i, last;
+	void swap(void *v[], int, int);
+	if (left >= right)
+		return;
+	swap(v, left, (left + right) / 2);
+	last = left;
+	for (int i = left + 1; i <= right; i++) {
+		if ((*comp)(v[i], v[left]) < 0)
+			swap(v, ++last, i);
+	}
+	swap(v, left, last);
+	qsort(v, left, last - 1, comp);//comp 相当于函数的起始地址
+	qsort(v, last + 1, right, comp);
+	//return;
+}
+
+//numcmp:compare s1 and s2 numerically
+int numcmp(char *s1, char *s2) {
+	double v1, v2;
+	v1 = atof(s1);
+	v2 = atof(s2);
+	if (v1 < v2)
+		return -1;
+	else if (v1 > v2)
+		return 1;
+	return 0;
+}
+
+void swap(void *v[], int i, int j) {
+	void *temp;
+	temp = v[i];
+	v[i] = v[j];
+	v[j] = temp;
+}
+
+
+
+```
+
+
+```c
+
+struct point {
+	int x;
+	int y;
+}x,y,z;
+
+struct point pt;
+struct maxpt = { 320,200 };
+
+struct rect {
+	struct point pt1;
+	struct point pt2;
+};
+
+struct rect screen;
+//screen.pt1.x
+
+
+struct point makepoint(int x, int y) {
+	struct point temp;
+	temp.x = x;
+	temp.y = y;
+	return temp;
+}
+
+struct point middle;
+struct point makepoint(int, int);
+screen.pt1 = makepoint(0, 0);
+screen.pt2 = makepoint(XMAX, YMAX);
+
+middle = makepoint((screen.pt1.x + screen.pt2.x) / 2, (screen.pt1.y + screen.pt2.y) / 2);
+
+
+//值传递
+addpoint(struct point p1, struct point p2) {
+	p1.x += p2.x;
+	p1.y += p2.y;
+	return p1;
+}
+
+//ptinrect:return 1 if p in r,0 if not
+int ptinrect(struct point p, struct rect r) {
+	return p.x >= r.pt1.x && p.x <= r.pt2.x && p.y >= r.pt1.y && p.y <= r.pt2.y;
+}
+
+#define min(a,b) ((a) < (b) ? (a) : (b))
+#define max(a,b) ((a) > (b) ? (a) : (b))
+
+
+struct rect canonrect(struct rect r) {
+	struct rect temp;
+	temp.pt1.x = min(r.pt1.x, r.pt2.x);
+	temp.pt1.y = min(r.pt1.y, r.pt2.y);
+	temp.pt2.x = max(r.pt1.x, r.pt2.x);
+	temp.pt2.y = max(r.pt1.y, r.pt2.y);
+	return temp;
+}
+
+
+struct point origin, *pp;
+pp = &origin;
+printf("origin is (%d,%d)\n", (*pp).x, (*pp).y);
+printf("origin is (%d,%d)\n", pp->x, pp->y);
+
+struct rect r, *rp = &r;
+
+
+struct key {
+	char *word;
+	int count;
+}keytab[NKEYS];
+
+struct key keytab2[NKEYS];
+
+struct key {
+	char *word;
+	int count;
+}keytab2[] = {
+	"auto",0,
+	"break",0,
+	"while",0
+};
+
+
+struct key {
+	char *word;
+	int count;
+}keytab2[] = {
+	{"auto",0},
+	{"break",0},
+	{"while",0}
+};
+
+```
+
+```c
+
+#include<ctype.h>
+//getword:get next word or character from input
+int getword(char *word,int lim){
+	int c,getch(void);
+	void ungetch(int);
+	char *w = word;
+	while(isspace(c = getch()));
+	if(c != EOF)
+		*w++ = c;
+	if(!isalpha(c)){
+		*w = '\0';
+		return c;
+	}
+	for(;--lim>0;w++){
+		if(!isalum(*w = getch())){
+			ungetch(*w);
+			break;
+		}
+	}
+	*w = '\0';
+	return word[0];
+}
+
+```
+
+
+
+
+```C
+#include<stdio.h>
+#include<ctype.h>
+#include<string.h>
+#define MAXWORD 100
+int getword(char *，int);
+struct key *binsearch(char *,struct key *,int);
+//count C keywords;pointer version
+main(){
+	char word[MAXWORD];
+	struct key *p;
+	while(getword(word,MAXWORD) != EOF){
+		if(isalpha(word[0]))
+			if((p = binsearch(word,keytab,NKEYS) != EOF)){
+				p->count++;
+			}
+	}
+	for(p = keytab;p< keytab + NKEYS;p++){
+		if(p->count > 0)
+			printf("%4d %s\n",p->count,p->word);
+	}
+	return 0;
+}
+
+//binsearch:find word in tab[0],...,tab[n-1]
+struct key *binsearch(char *word,struct key *tab,int n){
+	int cond;
+	struct key *low = &tab[0];
+	struct key *high = &tab[n];
+	struct key *mid;
+	while(low < high){
+		mid = low + (high-low)/2;
+		if((cond = strcmp(word,mid->word)<0)
+			high = mid;
+		else if (cond > 0)
+			low = mid  + 1;
+		else 
+			return mid;
+	}
+	return NULL;
+}
+```
+
+
+
+
+```c
+
+#include <stdio.h>
+#include<ctype.h>
+#include<string.h>
+#define MAXWORD 100
+struct tnode *addtree(struct tnode *,char *);
+void treeprint(struct tnode*);
+int getword(char *,int);
+struct tnode{
+	char *word;
+	int count;
+	struct tnode *left;
+	struct tnode *right;
+};
+//word frequency count
+main(){
+	struct tnode *root;
+	char word[MAXWORD];
+	root = NULL;
+	while(getword(word,MAXWORD) != EOF){
+		if(isalpha(word[0]))
+			root = addtree(root,word);
+	}
+	treeprint(root);
+	return 0;
+}
+struct tnode *talloc(void);
+char *strdup(char *);
+//addtree: add a node with w,at or below p
+
+struct treenode *addtree(struct tnode *p,char *w){
+	int cond;
+	if(p == NULL){
+		p = talloc();
+		p->word = strdup(w);
+		p->count = 1;
+		p->left = p->right = NULL;
+	}
+	else if((cond = strcmp(w,p->word)) == 0){
+		p->count++;
+	}
+	else if(cond < 0)
+		p->left = addtree(p->left,w);
+	else
+		p->right = addtree(p->right,w);
+	return p;
+}
+//treeprint: in-order print if tree p
+void treeprint(struct tnode *p){
+	if(p != NULL){
+		treeprint(p->left);
+		printf("%4d %s\n",p->count,p->word);
+		treeprint(p->right);
+	}
+}
+
+
+//talloc:make a tnode
+struct tnode *talloc(void){
+	return (struct tnode *) malloc(sizeof(struct tnode));
+}
+
+
+char *strdup(char *s){
+	char *p;
+	p = (char *) malloc(strlen(s) + 1);// +1 for '\0'
+	if(p != NULL)
+		strcpy(p,s);
+	return p;
+}
+
+```
+
+
+```c
+struct nlist{	//table entry
+	struct nlist *next; //next entry in chain
+	char *name;  // defined name
+	char *defn;   //replacement text
+}
+
+#define HASHSIZE 101
+static struct nlist *hashtab[HASHSIZE]; //pointer table
+//hash:form hash value for string s
+unsigned hash(char *s){
+	unsigned hashval;
+	for(hashval = 0;*s != '\0';s++){
+		hashval = *s + 31 * hashval;
+	}
+	return hashval % HASHSIZE;
+}
+
+//lookup:look for s in hashtab
+struct nlist *lookup(char *s){
+	struct nlist *np;
+	for(np = hashtab[hash[s]];np != NULL;np = np->next){
+		if(strcmp(s,np->name) == 0)
+			return np;
+	}
+	return NULL;
+}
+
+//for(ptr = head;ptr != NULL;ptr = ptr->next)
+
+struct nlist *lookup(char *);
+char *strup(char *);
+
+//install:put (name,defn) in hashtab
+struct nlist *install(char *name,char *defn){
+	struct nlist *np;
+	unsigned hashval;
+	if((np = lookup(name) == NULL)){
+		np = (struct nlist *) malloc(sizeof(*np));
+		if(np == NULL || (np->name = strdup(name)) == NULL)
+			return NULL;
+		hashval = hash(name);
+		np->next = hashtab[hashval];
+		hashtab[hashval] = np;
+	}
+	else 
+		free((void *) np->defn);
+	if((np->defn = strup(defn)) == NULL)
+		return NULL;
+	return np;
+}
+
+
+
+
+```
+
+typedef
+
+```c
+
+typedef int Length;
+Length len,maxlen;
+Length *lengths[];
+
+typedef char *String;
+String p,lineptr[MAXLINES],alloc(int);
+int strcmp(String,String);
+p = (String) malloc(100); //100 个bytes
+
+typedef struct tnode *Treeptr;
+typedef struct tnode{ // the tree node
+    char *word;
+    int count;
+    struct tnode *left;
+    struct tnode *right;
+}Treenode;
+
+//Treenode, a structure
+//Treeptr, a pointer to the structure
+
+Treeptr talloc(void){
+    return (Treeptr) malloc(sizeof(Treenode));
+}
+
+typedef int (*PFI)(char *,char *);
+PFI strcmp,numcmp;
+
+
+```
+
+
+```c
+
+
+union u_tag{
+	int ival;
+	float fval;
+	char *sval;
+}u;
+//union 的存储空间是最大类型所需的空间
+
+
+//使用union的时候 只能把他始终对待成同一种类型
+
+if(utype == INT)
+	printf("%d\n",u.ival);
+if(utype == FLOAT)
+	printf("%f\n",u.fval);
+if(utype == STRING)
+	printf("%s\n",u.sval);
+else 
+	printf("bad type %d in utype\n",utype);
+
+
+
+#define KEYWORD 01
+#define EXTERNAL 02
+#define STATIC 04
+
+enum {KEYWORD = 01,EXTERNAL = 02,STATIC = 04};
+
+flags |= EXTERNAL | STATIC;
+//turns on the EXTERNAL and STATIC bit in flags,while
+flags &= ~(EXTERNAL | STATIC);
+//turns them off
+
+if((flags & (EXTERNAL | STATIC)) == 0)
+//is true if both bits are off
+
+
+//more naturally
+//bitfield
+struct{
+	unsigned int is_keyword : 1;
+	unsigned int is_extern : 1;
+	unsigned int is_extern : 1;
+}flags;
+//This defines a variable table called flags that contains three 1 - bit fields.
+//The number following the colon represents the field width in bits.
+//The fields are declared unsigned intto ensure that they are unsigned quantities.
+
+flags.is_extern = flags.is_static = 1;
+flags.is_extern = flags.is_static = 0;
+
+if(flags.is_extern == 0 && flags.is_static == 0)
+
+
+
+
+```
+
+
+
+
+```c
+#include<stdarg.h>
+#include<stdio.h>
+//minprintf: minimal printf with variable argument list
+void minprintf(char *fmt,...){
+	va_list ap;//points to each unnamed arg in turn
+	char *p,*sval;
+	int ival;
+	double dval;
+	va_start(ap,fmt); // make ap point to 1st unnamed arg
+	for(p = fmt;*p;p++){
+		if(*p != '%'){
+			putchar(*p);
+			continue;
+		}
+		switch(*++p){
+			case 'd':
+				ival = va_arg(ap,int);
+				printf("%d",ival);
+				break;
+			case 'f':
+				dval = va_arg(ap,double);
+				printf("%f",dval);
+				break;
+			case 's':
+				for(sval = va_arg(ap,char *);*sval;sval++)
+					putchar(*sval);
+				break;
+			default:
+				putchar(*p);
+				break;
+		}
+	}
+	va_end(ap); //clean up when done
+}
+```
+
+```c
+#include<stdio.h>
+main(){ //rudimentary calculator
+	double sum,v;
+	sum = 0;
+	while(scanf("%lf",&v) == 1)
+		printf("%t%.2f\n",sum += v);
+	return 0;
+}
+```
+
+```c
+#include <stdio.h>
+#define getchar()  getc(stdin)
+#define putchar(c) putc((c),stdout)
+
+//cat : concatenate files, version 1
+main(int argc,char *argv[]){
+	FILE *fp;
+	void filecopy(FILE*,FILE*);
+	if(argc == 1) //no args;copy standard input
+		filecopy(stdin,stdout);
+	else
+		while(--argc > 0){
+			if((fp = fopen(*++argv,"r")) == NULL){
+				printf("cat:can't open %s \n",*argv);
+				return 1;
+			}
+			else{
+				filecopy(fp,stdout);
+				fclose(fp);
+			}
+		}
+		return 0;
+}
+
+void filecopy(FILE *ifp,FILE *ofp){
+	int c;
+	while((c = getc(ifp)) != EOF)
+		putc(c,ofp);
+}
+
+```
+
+```c
+#include <stdio.h>
+#define getchar()  getc(stdin)
+#define putchar(c) putc((c),stdout)
+
+//cat : concatenate files, version 2
+main(int argc,char *argv[]){
+	FILE *fp;
+	void filecopy(FILE*,FILE*);
+	char *prog = argv[0]; //program name for errors
+	if(argc == 1) //no args;copy standard input
+		filecopy(stdin,stdout);
+	else
+		while(--argc > 0){
+			if((fp = fopen(*++argv,"r")) == NULL){
+				fprintf(stderr,"%s:can't open %s\n",prog,*argv);
+				exit(1);
+			}
+			else{
+				filecopy(fp,stdout);
+				fclose(fp);
+			}
+		}
+	if(ferror(stdout)){ //check if an error occurred on the stream stdout  
+		fprintf(stderr,"%s: error writing stdout\n",prog);
+		exit(2);
+	}
+	exit(0);
+}
+
+void filecopy(FILE *ifp,FILE *ofp){
+	int c;
+	while((c = getc(ifp)) != EOF)
+		putc(c,ofp);
+}
+
+```
+
+```c
+//fgets: get at most n chars from iop
+char *fgets(char *s,int n ,FILE *iop){
+	register int c;
+	register char *cs;
+	cs = s;
+	while(--n > 0 && (c = getc(iop)) != EOF){
+		if((*cs++ = c) == '\n')
+			break;
+	}
+	*cs = '\0';
+	return (c == EOF && cs == s) ? NULL : s;
+}
+
+//fputs: put string s on file iop
+int fputs(char *s,FILE *iop){
+	int c;
+	while(c = *s++)
+		putc(c,iop);
+	return ferror(iop) ? EOF : 0;
+}
+
+
+//getline: read a line, return length
+int getline(char *line,int max){
+	if(fgets(line,max,stdin) == NULL)
+		return 0;
+	else 
+		return strlen(line);
+}
+
+
+```
+
+
+```c
+#include "syscalls.h"
+//read is a system call
+//getchar: unbuffered single character input
+int getchar(void){
+	char c;
+	return (read(0,&c,1) == 1) ? (unsigned char) c : EOF;
+}
+main(){ //copy input to output
+	char buf[BUFSIZ];
+	int n;
+	while((n = read(0,buf,BUFSIZ)) > 0)
+		write(1,buf,n);
+	return 0;
+}
+```
+
+```C
+#include "syscalls.h"
+//read is a system call
+//getchar: simple buffered version
+int getchar(void){
+	static char buf[BUFSIZ];
+	static char *bufp[BUFSIZ]
+	static int n = 0;
+	if(n == 0){ // buffer is empty
+		n = read(0,buf,sizeof buf);
+		bufp = buf;
+	}
+	return (--n >= 0) ? (unsigned char) *bufp++ : EOF;
+}
+main(){ //copy input to output
+	char buf[BUFSIZE];
+	int n;
+	while((n = read(0,buf,BUFSIZE)) > 0)
+		write(1,buf,n);
+	return 0;
+}
+```
+```c
+#include "syscalls.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdarg.h>
+#define PERMS 0666 //RW for owner,group,others
+void error(char *,...);
+//cp: copy f1 to f2
+main(int argc,char *argv[]){ 
+	int f1,f2,n;
+	char buf[BUFSIZ];
+	if(argc != 3)
+		error("Usage:cp from to");
+	if((f1 = open(argv[1],O_RDONLY,0)) == -1)
+		error("cp: can't open %s",argv[1]);
+	if((f2 = creat(argv[2],PERMS)) == -1)
+		error("cp: can't create %s,mode %03o",argv[2],PERMS);
+	while((n = read(f1,buf,BUFSIZ)) > 0)
+		if(write(f2,buf,n) != n)
+			error("cp: write error on file %s",argv[2]);
+	return 0;
+}
+
+
+//error: print an error message and die
+void error(char *fmt,...){
+	va_list args;
+	va_start(args,fmt);
+	fprintf(stderr,"error:");
+	vprintf(stderr,fmt,args);
+	fprintf(stderr,"\n");
+	va_end(args);
+	exit(1);
+}
+```
+
+
+```c
+
+#include <fcntl.h>
+#include "syscalls.h"
+#define PERMS 0666 // RW for owner,group,other
+
+#define NULL 0
+#define EOF (-1)
+#define BUFSIZ 1024
+#define OPEN_MAX 20 // max #files open at once 
+
+
+typedef struct _iobuf{
+	int cnt;//characters left
+	char *ptr; //next character position
+	char *base; //location of buffer
+	int flag; // mode of file access 
+	int fd;
+}FILE;
+
+extern FILE _iob[OPEN_MAX];
+#define stdin (%_iob[0])
+#define stdout (%_iob[1])
+#define stderr (&_iob[2])
+
+enum _flags{
+	_READ = 01, //file open for reading
+	_WRITE = 02, //file open for writing
+	_UNBUF = 04, //file is unbuffered
+	_EOF = 010, // EOF has occurred on this file
+	_ERR = 020 //error occurred on this file
+};
+
+int _fillbuf(FILE *);
+int _flushbuf(int,FILE *);
+
+#define feof(p) (((p)->flag & _EOF) != 0)
+#define ferror(p) (((p)->flag & _ERR) != 0)
+#define fileno(p) ((p)->fd)
+
+#define getc(p) (--(p)->cnt >= 0 \
+			  ? (unsigned char) *(p)->ptr++ : _fillbuf(p))
+
+#define putc(x,p) (--(p)->cnt >= 0 \
+			? *(p)->ptr++ = (x) : _flushbuf((x),p))
+
+
+#define getchar() getc(stdin)
+#define putchar(x) putc((x),stdout)
+
+
+
+
+FILE *fopen(char *name,char *mode){
+	int fd;
+	FILE *fp;
+	if(*mode != 'r' && *mode != 'w' && *mode != 'a')
+		return NULL;
+	for(fp = _iob;fp < _iob + OPEN_MAX;fp++)
+		if((fp->flag) & (_READ | _WRITE) == 0)
+			break; //found free slot
+	if(fp >= _iob + OPEN_MAX) // no free slots
+		return NULL;
+	if(*mode == 'w')
+		fd = creat(name,PERMS);
+	else if(*mode == 'a')
+		if((fd = open(name,O_RDONLY,0)) == -1)
+			fd = creat(name,PERMS);
+		lseek(fd,0L,2);
+	else 
+		fd = open(name,O_RDONLY,0);
+	if(fd == -1) //couldn't access name
+		return NULL;
+	fp->fd = fd;
+	fp->cnt = 0;
+	fp->base = NULL;
+	fp->flag = (*mode == 'r') ? _READ : _WRITE;
+	return fp;
+}
+
+```
 references:
 the c programming language
 
