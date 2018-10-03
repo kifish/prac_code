@@ -898,6 +898,321 @@ if(flags.is_extern == 0 && flags.is_static == 0)
 
 
 ```
+
+
+
+
+```c
+#include<stdarg.h>
+#include<stdio.h>
+//minprintf: minimal printf with variable argument list
+void minprintf(char *fmt,...){
+	va_list ap;//points to each unnamed arg in turn
+	char *p,*sval;
+	int ival;
+	double dval;
+	va_start(ap,fmt); // make ap point to 1st unnamed arg
+	for(p = fmt;*p;p++){
+		if(*p != '%'){
+			putchar(*p);
+			continue;
+		}
+		switch(*++p){
+			case 'd':
+				ival = va_arg(ap,int);
+				printf("%d",ival);
+				break;
+			case 'f':
+				dval = va_arg(ap,double);
+				printf("%f",dval);
+				break;
+			case 's':
+				for(sval = va_arg(ap,char *);*sval;sval++)
+					putchar(*sval);
+				break;
+			default:
+				putchar(*p);
+				break;
+		}
+	}
+	va_end(ap); //clean up when done
+}
+```
+
+```c
+#include<stdio.h>
+main(){ //rudimentary calculator
+	double sum,v;
+	sum = 0;
+	while(scanf("%lf",&v) == 1)
+		printf("%t%.2f\n",sum += v);
+	return 0;
+}
+```
+
+```c
+#include <stdio.h>
+#define getchar()  getc(stdin)
+#define putchar(c) putc((c),stdout)
+
+//cat : concatenate files, version 1
+main(int argc,char *argv[]){
+	FILE *fp;
+	void filecopy(FILE*,FILE*);
+	if(argc == 1) //no args;copy standard input
+		filecopy(stdin,stdout);
+	else
+		while(--argc > 0){
+			if((fp = fopen(*++argv,"r")) == NULL){
+				printf("cat:can't open %s \n",*argv);
+				return 1;
+			}
+			else{
+				filecopy(fp,stdout);
+				fclose(fp);
+			}
+		}
+		return 0;
+}
+
+void filecopy(FILE *ifp,FILE *ofp){
+	int c;
+	while((c = getc(ifp)) != EOF)
+		putc(c,ofp);
+}
+
+```
+
+```c
+#include <stdio.h>
+#define getchar()  getc(stdin)
+#define putchar(c) putc((c),stdout)
+
+//cat : concatenate files, version 2
+main(int argc,char *argv[]){
+	FILE *fp;
+	void filecopy(FILE*,FILE*);
+	char *prog = argv[0]; //program name for errors
+	if(argc == 1) //no args;copy standard input
+		filecopy(stdin,stdout);
+	else
+		while(--argc > 0){
+			if((fp = fopen(*++argv,"r")) == NULL){
+				fprintf(stderr,"%s:can't open %s\n",prog,*argv);
+				exit(1);
+			}
+			else{
+				filecopy(fp,stdout);
+				fclose(fp);
+			}
+		}
+	if(ferror(stdout)){ //check if an error occurred on the stream stdout  
+		fprintf(stderr,"%s: error writing stdout\n",prog);
+		exit(2);
+	}
+	exit(0);
+}
+
+void filecopy(FILE *ifp,FILE *ofp){
+	int c;
+	while((c = getc(ifp)) != EOF)
+		putc(c,ofp);
+}
+
+```
+
+```c
+//fgets: get at most n chars from iop
+char *fgets(char *s,int n ,FILE *iop){
+	register int c;
+	register char *cs;
+	cs = s;
+	while(--n > 0 && (c = getc(iop)) != EOF){
+		if((*cs++ = c) == '\n')
+			break;
+	}
+	*cs = '\0';
+	return (c == EOF && cs == s) ? NULL : s;
+}
+
+//fputs: put string s on file iop
+int fputs(char *s,FILE *iop){
+	int c;
+	while(c = *s++)
+		putc(c,iop);
+	return ferror(iop) ? EOF : 0;
+}
+
+
+//getline: read a line, return length
+int getline(char *line,int max){
+	if(fgets(line,max,stdin) == NULL)
+		return 0;
+	else 
+		return strlen(line);
+}
+
+
+```
+
+
+```c
+#include "syscalls.h"
+//read is a system call
+//getchar: unbuffered single character input
+int getchar(void){
+	char c;
+	return (read(0,&c,1) == 1) ? (unsigned char) c : EOF;
+}
+main(){ //copy input to output
+	char buf[BUFSIZ];
+	int n;
+	while((n = read(0,buf,BUFSIZ)) > 0)
+		write(1,buf,n);
+	return 0;
+}
+```
+
+```C
+#include "syscalls.h"
+//read is a system call
+//getchar: simple buffered version
+int getchar(void){
+	static char buf[BUFSIZ];
+	static char *bufp[BUFSIZ]
+	static int n = 0;
+	if(n == 0){ // buffer is empty
+		n = read(0,buf,sizeof buf);
+		bufp = buf;
+	}
+	return (--n >= 0) ? (unsigned char) *bufp++ : EOF;
+}
+main(){ //copy input to output
+	char buf[BUFSIZE];
+	int n;
+	while((n = read(0,buf,BUFSIZE)) > 0)
+		write(1,buf,n);
+	return 0;
+}
+```
+```c
+#include "syscalls.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdarg.h>
+#define PERMS 0666 //RW for owner,group,others
+void error(char *,...);
+//cp: copy f1 to f2
+main(int argc,char *argv[]){ 
+	int f1,f2,n;
+	char buf[BUFSIZ];
+	if(argc != 3)
+		error("Usage:cp from to");
+	if((f1 = open(argv[1],O_RDONLY,0)) == -1)
+		error("cp: can't open %s",argv[1]);
+	if((f2 = creat(argv[2],PERMS)) == -1)
+		error("cp: can't create %s,mode %03o",argv[2],PERMS);
+	while((n = read(f1,buf,BUFSIZ)) > 0)
+		if(write(f2,buf,n) != n)
+			error("cp: write error on file %s",argv[2]);
+	return 0;
+}
+
+
+//error: print an error message and die
+void error(char *fmt,...){
+	va_list args;
+	va_start(args,fmt);
+	fprintf(stderr,"error:");
+	vprintf(stderr,fmt,args);
+	fprintf(stderr,"\n");
+	va_end(args);
+	exit(1);
+}
+```
+
+
+```c
+
+#include <fcntl.h>
+#include "syscalls.h"
+#define PERMS 0666 // RW for owner,group,other
+
+#define NULL 0
+#define EOF (-1)
+#define BUFSIZ 1024
+#define OPEN_MAX 20 // max #files open at once 
+
+
+typedef struct _iobuf{
+	int cnt;//characters left
+	char *ptr; //next character position
+	char *base; //location of buffer
+	int flag; // mode of file access 
+	int fd;
+}FILE;
+
+extern FILE _iob[OPEN_MAX];
+#define stdin (%_iob[0])
+#define stdout (%_iob[1])
+#define stderr (&_iob[2])
+
+enum _flags{
+	_READ = 01, //file open for reading
+	_WRITE = 02, //file open for writing
+	_UNBUF = 04, //file is unbuffered
+	_EOF = 010, // EOF has occurred on this file
+	_ERR = 020 //error occurred on this file
+};
+
+int _fillbuf(FILE *);
+int _flushbuf(int,FILE *);
+
+#define feof(p) (((p)->flag & _EOF) != 0)
+#define ferror(p) (((p)->flag & _ERR) != 0)
+#define fileno(p) ((p)->fd)
+
+#define getc(p) (--(p)->cnt >= 0 \
+			  ? (unsigned char) *(p)->ptr++ : _fillbuf(p))
+
+#define putc(x,p) (--(p)->cnt >= 0 \
+			? *(p)->ptr++ = (x) : _flushbuf((x),p))
+
+
+#define getchar() getc(stdin)
+#define putchar(x) putc((x),stdout)
+
+
+
+
+FILE *fopen(char *name,char *mode){
+	int fd;
+	FILE *fp;
+	if(*mode != 'r' && *mode != 'w' && *mode != 'a')
+		return NULL;
+	for(fp = _iob;fp < _iob + OPEN_MAX;fp++)
+		if((fp->flag) & (_READ | _WRITE) == 0)
+			break; //found free slot
+	if(fp >= _iob + OPEN_MAX) // no free slots
+		return NULL;
+	if(*mode == 'w')
+		fd = creat(name,PERMS);
+	else if(*mode == 'a')
+		if((fd = open(name,O_RDONLY,0)) == -1)
+			fd = creat(name,PERMS);
+		lseek(fd,0L,2);
+	else 
+		fd = open(name,O_RDONLY,0);
+	if(fd == -1) //couldn't access name
+		return NULL;
+	fp->fd = fd;
+	fp->cnt = 0;
+	fp->base = NULL;
+	fp->flag = (*mode == 'r') ? _READ : _WRITE;
+	return fp;
+}
+
+```
 references:
 the c programming language
 
