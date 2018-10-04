@@ -1225,6 +1225,285 @@ int get(int fd,long pos,char *buf,int n){
         return -1;
 }
 ```
+```C
+#include "syscalls.h"
+//_fillbuf: allocate and fill input buffer
+int _fillbuf(FILE *fp){
+	int bufsize;
+	if((fp->flag & (_READ | _EOF_ERR)) != _READ)
+		return EOF;
+	bufsize = (fp->flag & _UNBUF) ? 1 : BUFSIZ;
+	if(fp->base == NULL) //no buffer yet
+		if(((fp->base) = (char *) malloc(bufsize)) == NULL)
+			return EOF; //can't get buffer
+	fp->ptr = fp->base;
+	fp->cnt = read(fp->fd,fp->ptr,bufsize);
+	if(--fp->cnt < 0){
+		if(fp->cnt == -1)
+			fp->flag |= _EOF;
+		else 
+			fp->flag |= _ERR;
+		fp->cnt = 0;
+		return EOF;
+	}
+	return (unsigned char) *fp->ptr++;
+}
+
+
+FILE _iob[OPEN_MAX] = { //stdin,stdout,stderr
+	{0,(char *) 0,(char *) 0, _READ,0},
+	{0,(char *) 0,(char *) 0, _WRITE,1},
+	{0,(char *) 0,(char *) 0,_WRITE,|_UNBUF,2}
+}
+```
+
+
+```C
+//dirent.h
+#define NAME_MAX 14 //longest filename component;system-dependent
+typedef struct{  //portable directory entry
+	long ino;   // inode number
+	char name[NAME_MAX + 1];  //name + '\0' terminator
+}Dirent;
+
+typedef struct{ //minimal DIR: no buffering,etc
+	int fd;  	//file descriptor for the directory
+	Dirent d;   //the directory entry
+}DIR;
+
+DIR *opendir(char *dirname);
+Dirent *readdir(DIR *dfd);
+void closedir(DIR *dfd);
+
+char *name;
+struct stat stbuf;
+int stat(char *,struct stat *);
+
+//stat(name,&stbuf);
+//fills the structure stbuf with the inode information for the file name.
+
+
+
+#include <sys/stat.h>
+
+struct stat{ //inode information returned by stat
+	dev_t st_dev;//device of inode
+	ino_t st_ino; //inode number
+	short st_mode; //mode bits
+	short st_nlink; //number of links to file
+	short st_uid; //owners user id
+	short st_gid; //owners group id
+	dev_t st_rdev; //for special files
+	off_t st_size; //file size in characters
+	time_t st_atime; //time last accessed 
+	time_t st_mtime; //time last modified
+	time_t st_ctime; //time originally created
+}
+
+#define S_IFMT 0160000  //type if file: 
+#define S_IFDIR 004000  //directory
+#define S_IFCHR 002000  //character special
+#define S_IFBLK 006000  //block special
+#define S_IFREG 001000  //regular
+
+
+#include <stdio.h>
+#include <string.h>
+#include "syscalls.h"
+#include <fcntl.h> //flags for read and write
+#include <sys/type.h> //typedefs
+#include <sys/stat.h> //structure returned by stat
+#include "direct.h"
+
+void fsize(char *);
+//print file name
+main(int argc,char **argv){
+	if(argc == 1) //default:current directory
+		fsize(".");
+	else 
+		while(--argc > 0)
+			fsize(*++argv);
+	return 0;
+}
+
+int stat(char *,struct stat *);
+void dirwalk(char *,void (*fcn)(char *));
+
+
+//fsize: print the name of file "name"
+void fsize(char *name){
+	struct stat stbuf;
+	if(stat(name,&stbuf) == -1){
+		fprintf(stderr,"fsize:can't access %s\n",name);
+		return;
+	}
+	if((stbuf.st_mode & S_IFMT) == S_IFDIR)
+		dirwalk(name,fsize);
+	printf("%8ld %s\n",stbuf.st_size,name);
+}
+
+#define MAX_PATH 1024
+//dirwalk: apply fcn to all files in dir
+void dirwalk(char *dir,void (*fcn)(char *)){
+	char name[MXA_PATH];
+	Dirent *dp;
+	DIR *dfd;
+	if((dfd = opendir(dir)) == NULL){
+		fprintf(stderr,"dirwalk: can't open %s\n",dir);
+		return;
+	}
+	while((dp = readdir(dfd)) != NULL){
+		if(strcmp(dp->name,".") == 0 ||
+			strcmp(dp->name,".."))
+				continue; //skip self and parent
+		if(strlen(dir) + strlen(dp->name) + 2 > sizeof(name))
+			fprintf(stderr,"dirwalk: name %s %s too long \n",dir,dp->name);
+		else{
+			sprintf(name,"%s/%s",dir,dp->name);
+			(*fcn)(name);
+		}
+	}
+	closedir(dfd);
+}
+
+#include <sys/dir.h>
+#ifndef DIRSIZ
+#define DIRSIZ 14
+#endif
+struct direct{ //directory entry
+	ino_t d_ino; //inode number
+	char d_name[DIRSIZ]; //long name does not have '\0'
+}
+//information ino_t can be found in <sys/types.h>
+//typedef is used to ensure the portability
+
+
+
+int fstat(int fd,struct stat *);
+//opendir: open a directory for readdir calls
+DIR *opendir(char *dirname){
+	int fd;
+	struct stat stbuf;
+	DIR *dp;
+	if((fd = open(dirname,O_RDONLY,0)) == -1
+		|| fstat(fd,&stbuf) == -1
+		|| stbuf.st_mode & S_IFMT != S_IFDIR
+		||(dp = (DIR *) malloc(sizeof(DIR))) == NULL)
+		return NULL;
+	dp->fd = fd;
+	return dp;
+}
+
+//closedir: close directory opened by opendir
+void closedir(DIR *dp){
+	if(dp){
+		close(dp-fd);
+		free(dp);
+	}
+}
+
+#include<sys/dir.h> //local directory structure
+//readdir: read directory entries in sequence
+Dirent *readdir(DIR *dp){
+	struct dirent dirbuf; //local directory structure
+	struct Dirent d; //return: portable structure
+	while(read(dp->fd,(char *) &dirbuf,sizeof(dirbuf)) ==
+			sizeof(dirbuf)){
+		if(dirbuf.d_ino == 0) //slot not in use
+			continue;
+		d.ino = dirbuf.d_ino;
+		strcpy(d.name,dirbuf.d_name,DIRSIZ);
+		d.name[DIRSIZ] = '\0'; //ensure termination
+		return &d;
+	}
+	return NULL;
+}
+```
+```c
+typedef long Align; // for alignment to long boundary
+
+union header{ //block header
+	struct{
+		union header *ptr; //next block if on free list
+		unsigned size; //size of this block;
+	}s;
+	Align x; //force alignment of blocks
+};
+//The Align field is never used;
+//it just forces each header to be aligned on a worst - case boundary.
+
+typedef union header Header;
+
+static Header base; //empty list to get started
+static Header *freep = NULL; //start of free list
+//malloc: general-purpose storage allocator
+void *malloc(unsigned nbytes){
+	Header *p,*prevp;
+	Header *moreroce(unsigned);
+	unsigned nunits;
+	nunits = (nbytes + sizeof(Header) - 1) / sizeof(header) + 1;
+	if((prevp = freep) == NULL){ // no free list yet
+		base.s.ptr = freeptr = prevptr = &base;
+		base.s.size = 0;
+	}	
+	for(p = prevp->s.ptr; ;prevp = p,p = p->s.ptr){
+		if(p->s.size >= nunits){ //big enough
+			if(p->s.size == nunits) //exactlt
+				prevp->s.ptr = p->s.ptr;
+			else{ //allocate tail end
+				p->s.size -= nunits;
+				p += p->s.size;
+				p->s.size = nunits;
+			}
+			freep = prevp;
+			return (void *)(p+1);//真正存放data的空间的起始地址，+1代表加一个Header所占的总bytes，正好偏移到存储区的起始地址
+		}
+		if(p == freep) //wrapped around free list,空闲链表环转了一圈
+			if((p = moreroce(nunits)) == NULL)
+				return NULL;	// none left
+	}
+}
+
+#define NALLOC 1024 //minimum #units to request
+//morecore: ask system for more memory
+static Header *morecore(unsigned nu){
+	char *cp,*sbrk(int);
+	Header *up;
+	if(nu < NALLOC)
+		nu = NALLOC;
+	cp = sbrk(nu * sizeof(Header));
+	if(cp == (char *) -1) //no space at a;;
+		return NULL;
+	up = (Header *) cp;
+	up->s.size = nu;
+	free((void *)(up + 1));
+	return freep;
+}
+
+
+//free: put block ap in free list
+void free(void *ap){
+	Header *bp,*p;
+	bp = (Header *)ap - 1; //point to block header
+	for(p = freep;!(bp > p && bp < p->s.ptr);p = p->s.ptr){
+		if(p >= p->s.ptr && (bp>p || bp < p->s.ptr))
+			break;
+	}
+	if(bp + bp->s.size == p->s.ptr){ //join to upper nbt
+		bp->s.size += p->s.ptr->s.size;
+		bp->s.ptr = p->s.ptr->s.ptr;
+	}
+	else
+		bp->s.ptr = p->s.ptr;
+	if(p + p->s.size == bp){ //join to lower nbr
+		p->s.size += bp->s.size;
+		p->s.ptr = bp->s.ptr;
+	}
+	else 
+		p->s.ptr = bp;
+	freep = p;
+}
+```
 
 
 references:
