@@ -40,6 +40,9 @@ int binsearch(int x, int v[], int n){
 } 
 ```
 
+初始化数组
+`int a[1010] = {0}; //初始化为0`
+
 ```C
 // Shellsort: sort v[0]...v[n-1] into increasing order
 void shellsort(int v[],int n){
