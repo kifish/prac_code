@@ -32,7 +32,7 @@ int binsearch(int x, int v[], int n){
          if (x < v[mid]) 
             high = mid - 1; 
          else
-            low = mid;
+            low = mid + 1;
     } 
     if(v[mid] == x)
         return mid; 
