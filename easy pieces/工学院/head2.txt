@@ -1,0 +1,7 @@
+pp
+    {
+    field p;
+        expression "1e5-4510*9.81*(pos().z)";
+    condition "pos().z<=0";
+    keepPatches true;
+    }

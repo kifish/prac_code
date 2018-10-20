@@ -1,0 +1,7 @@
+alphawater
+    {
+    field alpha.phase1;
+    expression "1";
+    condition "pos().z<=0";
+    keepPatches true;
+    }
