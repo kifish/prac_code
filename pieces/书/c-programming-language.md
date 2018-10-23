@@ -23,21 +23,40 @@ int binsearch(int x, int v[], int n) {
 
 用一次test,
 ```c
-int binsearch(int x, int v[], int n){ 
-    int low, high, mid; 
-    low = 0; 
-    high = n - 1; 
-    while (low < high) {
-         mid = (low+high)/2; 
-         if (x < v[mid]) 
-            high = mid - 1; 
-         else
-            low = mid + 1;
-    } 
-    if(v[mid] == x)
-        return mid; 
-    return -1;
-} 
+#include <cstdio>
+#include <cstdlib>
+//例如：1 2 3 4
+// find 3
+// 二分的过程就是不断缩小范围的过程，每次迭代范围大概能缩小一半。
+//v[] 不递减
+int binsearch(int x, int v[], int n)
+{
+	int low, high, mid;
+	low = 0;
+	high = n - 1;
+	while (low < high) //退出循环的时候 必然是low == high。搜索范围的长度一开始是n,然后mid是n/2 + 1（n为奇数）；n/2 （n为偶数），倒数第二次迭代 low == high -1
+	{
+		mid = (low + high) / 2;
+		if (x > v[mid]) // 可能的范围必然是[mid + 1,high]
+			low = mid + 1;
+		else // x <= v[mid] 可能的范围必然是[low,mid]
+			high = mid;
+	}
+	int rank = low;//循环不变量,[low,high]始终是搜索范围，当搜索范围的长度变为1的时候，即low==high，即跳出循环。 若x < v[0]，low最终为0；若x > v[n-1]，low最终为n-1；若v[0] <= x <= v[n-1] (数值是离散的，x未必在里面)，low最终要么x[low] == x 要么 x[low] > x(此时x[low] 是v中比x大的 最小的数，有两种情况，最后一次迭代，是high的值改变了，则low在数次迭代中已经达到最终值并不变，high最终和low相等退出循环；最后一次迭代，low的值改变了，则之前的迭代中v[low] < x).
+	if (v[rank] == x)
+		return rank;
+	return -1;
+	//更简洁的写法，return (x == v[rank]) ? rank : -1;
+}
+
+
+int main() {
+	int a[5] = { 1, 2, 3, 4, 5 };
+	for (int x = 0; x <= 6; x++)
+		printf("%d\n", binsearch(x, a, 5));
+	system("pause");
+	return 0;
+}
 ```
 
 初始化数组
