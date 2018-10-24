@@ -21,3 +21,8 @@ top(length of upper-body clothing), shoes(color of shoes), color of upper-body c
 ## high-level attributes
 
 gender, boots, hat, backpack, handbag, bag
+
+
+dff & hk
+
+
