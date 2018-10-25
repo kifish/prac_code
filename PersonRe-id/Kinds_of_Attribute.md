@@ -4,11 +4,11 @@
 
 ## Low-level attributes
 
-top(length of upper-body clothing), shoes(color of shoes), color of upper-body clothing(8), color of lower-body clothing(7)
+top(length of upper-body clothing)[7], shoes(color of shoes)[6], color of upper-body clothing(8)[8-15], color of lower-body clothing(7)[16-22]
 
 ## High-level attributes
 
-gender, boots, hat, backpack, handbag, bag
+gender[4], boots[0], hat[5], backpack[1], handbag[3], bag[2]
 
 
 # Kinds of attribute of Market1501
