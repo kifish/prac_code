@@ -2,7 +2,7 @@
 
 Efficient and deep person person re-identification using multi-level similarity
 
-Resource aware person re-identification across multiple resolutions
+Resource aware person re-identification across multiple resolutions
 
 # To do
 
