@@ -1,8 +1,8 @@
 # Done
 
-Efficient and deep person person re-identification using multi-level similarity
+## Efficient and deep person person re-identification using multi-level similarity
 
-Resource aware person re-identification across multiple resolutions
+## Resource aware person re-identification across multiple resolutions
 
 # To do
 
