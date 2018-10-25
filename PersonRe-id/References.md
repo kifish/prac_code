@@ -4,6 +4,8 @@
 
 ## Resource aware person re-identification across multiple resolutions
 
+## Multi-level factorisation net for person re-identification
+
 # To do
 
 H. Zhao, M. Tian, S. Sun, J. Yan, S. Yi, X. Wang, and X. Tang. Spindle net: Person re-identification with human body region guided feature decomposition and fusion. In The IEEE Conference on Computer Vision and Pattern Recognition(CVPR), July 2017.
