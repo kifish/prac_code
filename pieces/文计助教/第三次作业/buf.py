@@ -1,17 +1,17 @@
-rfile=open("/Users/k/Documents/prac_code/pieces/文计助教/第三次作业/20181017作业/50W.txt","r",encoding="utf-8")#打开50W.text文件，r代表动作，encoding代表输出格式
-fileContent=rfile.read()
-rfile.close()
 
-listA=fileContent.split()
-chnCount=len(listA)
-dictXing={}
-for i in range(0,chnCount):
-    tmp=listA[i]
-    xing=tmp[0]
-    if xing in dictXing:
-        dictXing[xing]+=1
-    else:
-        dictXing[xing]=1
-listB=list(dictXing.items())
-listB.sort(key=lambda x:x[1],reverse=True)
-#lambda是一个匿名函数，实际效果就是def一个函数
+def kmp_matching(target,pattern,pnext):
+    t_idx,match_len = 0,0
+    n,m = len(target),len(pattern)
+    while t_idx < n and match_len < m:
+        if match_len == -1:
+            t_idx,match_len = t_idx + 1,match_len + 1
+        elif target[t_idx] == pattern[match_len]:
+            t_idx,match_len = t_idx + 1,match_len + 1
+        else:
+            match_len = pnext[match_len]
+    if match_len == m:
+        return t_idx - match_len
+    return -1
+
+# next 数组见算法笔记这本书的456页
+

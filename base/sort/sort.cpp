@@ -11,11 +11,12 @@ void swap(int &a,int &b){
 /*
 以下所实现的冒泡排序，从左往右遍历，那么较大的元素(rabbit)很容易到达队尾，
 较小的元素(turtle)则在一次遍历只能向右移动一个单位。
-冒泡排序总是相邻的两个元素比较并交换
+冒泡排序总是相邻的两个元素比较并交换.
+冒泡的本质在于交换，每次通过交换把当前剩余元素中的最大元素移到固定的一端。
 */
 void bubble_sort(int a[],int n){
     bool hasSwap = 0;
-    for(int i = 0;i<n-1;i++){
+    for(int i = 0;i<n-1;i++){//冒泡要执行n-1趟，因此这么写，并没有将i用于下标。但是更清晰的写法是换成while。
         hasSwap = 0;
         for(int j = 0;j<n-1-i;j++){
             if(a[j]>a[j+1]){
@@ -28,6 +29,39 @@ void bubble_sort(int a[],int n){
         if(!hasSwap){
             break;
         }
+    }
+}
+
+void bubble_sort2(int a[],int n){
+    bool hasSwap = 0;
+    for(int iter_idx = 1;iter_idx <= n-1;iter_idx++){
+        hasSwap = 0;
+        for(int j = 0;j<n-iter_idx;j++){
+            if(a[j] > a[j+1]){
+                swap(a[j],a[j+1]);
+                if(!hasSwap)
+                    hasSwap = 1;
+            }
+        }
+        if(!hasSwap)
+            break;
+    }
+}
+
+void bubble_sort3(int a[],int n){
+    bool hasSwap = 0;
+    int last_idx = n;
+    while(last_idx--){//每次冒泡都在划分数组，化为两部分，一部分是无序部分，[0,last_idx],另一部分是有序部分(last_idx:]
+        hasSwap = 0;//每次冒泡所要做的工作就是让无序部分中的最大元素调到无序部分的最末尾。
+        for(int j = 0;j <= last_idx -1;j++){
+            if(a[j] > a[j+1]){
+                swap(a[j],a[j+1]);
+                if(!hasSwap)
+                    hasSwap = 1;
+            }
+        }
+        if(!hasSwap)
+            break;
     }
 }
 
