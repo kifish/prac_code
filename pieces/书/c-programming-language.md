@@ -1,3 +1,4 @@
+https://github.com/thvdburgt/KnR-The-C-Programming-Language-Solutions
 
 ```C
 /* binsearch: find x in v[0] <= v[1] <= ... <= v[n-1] */ 
