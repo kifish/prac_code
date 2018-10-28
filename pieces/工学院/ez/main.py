@@ -2,10 +2,13 @@ import pandas as pd
 from functools import reduce
 import os
 import re
+import sys
+raw_data_path = sys.argv[1]
+field_dict_path = sys.argv[2]
 
 df = pd.DataFrame()
 # raw_data_path = 'C:/Users/k/Desktop/dump8000.nozzel'
-raw_data_path = '/Users/k/Documents/prac_code/pieces/工学院/dump8000.nozzel'
+# raw_data_path = '/Users/k/Documents/prac_code/pieces/工学院/dump8000.nozzel'
 with open(raw_data_path, 'r') as f:
     for line in f:
         df = pd.concat(
@@ -29,7 +32,7 @@ def get_needed_data(df):
 
 
 # field_dict_path = 'C:/Users/k/Desktop/funkySetFieldsDict'
-field_dict_path = '/Users/k/Documents/prac_code/pieces/工学院/funkySetFieldsDict'
+# field_dict_path = '/Users/k/Documents/prac_code/pieces/工学院/funkySetFieldsDict'
 with open(field_dict_path, 'r') as f:
     raw_str = f.read()
 text_head = raw_str[:788]

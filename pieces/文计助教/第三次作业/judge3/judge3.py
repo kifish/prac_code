@@ -49,8 +49,21 @@ def judge(paramStr1, paramStr2):
     else:
         return False
 
-f1 = open("result.txt", "r", encoding="utf-8")
+path1 = '/Users/k/Documents/prac_code/pieces/文计助教/第三次作业/judge3/result.txt'
+f1 = open(path1, "r", encoding="utf-8")
 # f2 = open("anyoneelse.txt", "r")
+path2 = '/Users/k/Downloads/resources/'
+import os
+list_ = os.listdir(path2)
+zipfile_path = os.path.join(path2,list_[0])
+upzip_path = os.path.join(path2,"upzip")
+import zipfile
+files = zipfile.ZipFile(zipfile_path,'r')
+for file in files.namelist():
+    files.extract(file,upzip_path)
+files.close()
+
+
 f2 = open("anyoneelse.txt", "r", encoding="utf-8")
 
 list1 = f1.readlines()
