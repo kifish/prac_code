@@ -2,6 +2,8 @@ Jon Kleinberg著《Algorithm Design》第3章图论课后习题第4题，英文�
 http://algorithm.openjudge.cn/algorithmb/
 
 https://blog.csdn.net/wr339988/article/details/53739056
+https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/Bipartite.java.html
+
 
 `#include<bits/stdc++.h>`
 POJ支持这样的写法，但是clion不支持。
