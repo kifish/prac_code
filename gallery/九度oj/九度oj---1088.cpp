@@ -1,6 +1,6 @@
 
 /*
-memset是对整个字节操作。memset(a,0,sizeof(a));可以。memset(a,1,sizeof(a));不行。
+memset是对整个字节操作。memset(a,0,sizeof(a));可以。memset(a,-1,sizeof(a));可以。memset(a,1,sizeof(a));不行。
 
 改用fill。
 */
@@ -25,7 +25,6 @@ int main(){
         int cnt=0;
         for(int i=0;i<=Length;i++) cnt+=L[i];
         printf("%d\n",cnt);
-    
     }
     return 0;
 }
