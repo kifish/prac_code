@@ -117,7 +117,7 @@ def parse(paramPath):
     is_hundred = False
     for line in rFile.readlines():
         line = line.strip()
-        line = re.split(",|\s+", line)
+        line = re.split("[, ]+", line)
         try:
             line[1] = float(line[1])
             if (is_first):
