@@ -16,3 +16,15 @@ pata 1018
 只能dijkstra+dfs
 
 
+pata 1072 
+dijkstra + 模拟
+
+
+
+pata 1087
+dijkstra + dfs
+或者用平均点权，见算法笔记上机指南书379页。不过dijkstra + dfs 更通用，而一遍dijkstra能解决的问题必须要满足最优子结构。
+
+
+
+
