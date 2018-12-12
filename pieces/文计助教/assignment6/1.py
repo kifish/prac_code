@@ -1,6 +1,9 @@
 from bs4 import BeautifulSoup
 import requests
 res = requests.get('http://news.sina.com.cn/hotnews/20181030.shtml')
+# 注意2018年的网页加了反爬措施，不太好爬。
+# 2008年的网页没有反爬措施
+
 res.encoding = "utf-8"
 htmlCode = res.text
 oBS = BeautifulSoup(htmlCode,"html.parser")
