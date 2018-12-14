@@ -34,7 +34,7 @@ for i in range(len(_li)):
     biaozhun+=math.pow(_li[i]-average,2)
 biaozhun=math.sqrt(biaozhun)
 
-print(str(total_num)+","+str(highest)+","+str(lowest)+","+str(failed_num)+","+str(good_num)+","+round(str(biaozhun),2))
+print(str(total_num)+","+str(highest)+","+str(lowest)+","+str(failed_num)+","+str(good_num)+","+str(round((biaozhun),2)))
 for i in range(len(li)):
     if i!=len(li)-1:
         print(li[i], end=",")
