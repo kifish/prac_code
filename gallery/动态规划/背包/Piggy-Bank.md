@@ -1,6 +1,8 @@
 
 http://algorithm.openjudge.cn/2018finalsim/4/
 
+http://bailian.openjudge.cn/practice/1384/
+
 无穷背包。
 ```c
 #pragma warning(disable : 4996)
