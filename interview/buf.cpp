@@ -1,52 +1,90 @@
 #include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <cstdio>
+#include <queue>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <set>
+#include <map>
 using namespace std;
-struct State
+
+vector<int> pre[5001];
+int num[5001];
+int dp[5001];
+
+set<vector<int> > res;
+
+vector<int> path;
+void dfs(int idx)
 {
-    char map[10][10]; //棋盘
-    int pre_row_idx; //上一个棋子的行数
-};
-//st表示开始搜索的棋子所在的那一行,resnum表示剩余可放的棋子数
-int n, resnum; //n表示当前的棋盘大小为n*n,k表示可放的总棋子数
-int ans;       //摆放的所有可能数
-void DFS(State &state, int left)
-{
-    if (left == 0)
-    { //成功放完
-        ans++;
+    path.push_back(idx);
+    //到达边界。
+    if (pre[idx].size() == 0)
+    {
+        res.insert(path);
+        path.pop_back();
         return;
     }
-    int row, col;
-    for (row = state.pre_row_idx + 1; row < n; row++)
+    //未到达边界。
+    for (int i = 0; i < pre[idx].size(); i++)
     {
-        for (col = 0; col < n; col++)
-        {
-            if (state.map[row][col] == '#')
-            {
-                State next = state;
-                next.pre_row_idx = row;
-                for (int j = row + 1; j < n; j++)
-                    next.map[j][col] = '.';
-                DFS(next, left - 1);
-            }
-        }
+        dfs(pre[idx][i]);
+        path.pop_back();
     }
 }
+
 int main()
 {
-    while (cin >> n >> resnum)
+    int n;
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
+        scanf("%d", &num[i]);
+    for (int i = 1; i <= n; i++)
     {
-
-        if (n == -1 && resnum == -1)
-            break;
-        ans = 0;
-        State temp;
-        temp.pre_row_idx = -1; //此时还未放棋子,初始化为-1
-        for (int i = 0; i < n; i++)
+        int max_len = 1;
+        vector<int> pre_idxs;
+        for (int j = 1; j < i; j++)
         {
-            cin >> temp.map[i];
+            if (num[i] >= num[j])
+                continue;
+
+            if (dp[j] + 1 > max_len)
+            {
+                max_len = dp[j] + 1;
+                pre_idxs.clear();
+                pre_idxs.push_back(j);
+            }
+            else if (dp[j] + 1 == max_len)
+                pre_idxs.push_back(j);
         }
-        DFS(temp, resnum);
-        cout << ans << endl;
+
+        dp[i] = max_len;
+        pre[i] = pre_idxs;
     }
+    int max_len = 1;
+    vector<int> end_idxs;
+    for (int i = 1; i <= n; i++)
+    {
+        if (dp[i] > max_len)
+        {
+            max_len = dp[i];
+            end_idxs.clear();
+            end_idxs.push_back(i);
+        }
+        else if (dp[i] == max_len)
+            end_idxs.push_back(i);
+    }
+    //return 0;这里可以正常退出。
+    for (int i = 0; i < end_idxs.size(); i++)
+    {
+        path.clear();
+        dfs(end_idxs[i]);
+    }
+    printf("here\n");
+    return 0; //这里不会结束!
+    printf("%d %d\n", max_len, (int)res.size());
     return 0;
 }
