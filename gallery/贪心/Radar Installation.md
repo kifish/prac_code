@@ -1,3 +1,5 @@
+http://algorithm.openjudge.cn/2016finalex/F/
+
 
 贪心的证明：
 所有的岛屿都必须覆盖。
