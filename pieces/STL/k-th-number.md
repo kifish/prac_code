@@ -15,7 +15,7 @@ nth_element()函数
     a[n,end]中的数。对给定范围[first,last)内的元素进行重新布置.方法是,nth位置的元素放置的值就是把所有元素排序后在nth位置的值.把所有不大于nth的值放到nth的前面,把所有不小于nth的值放到nth后面.
 
  
-注意：nth_element()函数仅仅是将第n大的数排好了位置，并不返回值。 
+注意：nth_element()函数仅仅是将第n大的数排好了位置，并不返回值。
 
 //nth_elementexample
 #include<iostream>//std::cout
