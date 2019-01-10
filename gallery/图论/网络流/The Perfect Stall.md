@@ -1,7 +1,9 @@
-http://algorithm.openjudge.cn/algorithmd/C/
+http://algorithm.openjudge.cn/algorithmd/D/
 
 
-```c
+最大匹配。
+
+```C
 /*
  * Dinic algo for max flow
  *
@@ -19,7 +21,7 @@ http://algorithm.openjudge.cn/algorithmd/C/
 #include <vector>
 #include <algorithm>
 
-#define N (200+2)
+#define N (400+2)
 #define M (N*N+4*N)
 
 typedef long long LL;
@@ -151,20 +153,38 @@ int main() {
     int pig[M+1], pre[M+1];
     bool con[N+1];
     FILE *fin;
+    /*fin = fopen("pigs.dat", "r");
+    assert(fin);*/
     fin = stdin;
-    while (fscanf(fin, "%d %d", &m, &n) == 2){
+    int cow_n,stall_n;
+    while(fscanf(fin, "%d %d", &cow_n, &stall_n) == 2){
+        n = cow_n + stall_n;
         dinic_init();
-        s = 1, t = n;
-        for (int i=1; i<=m; i++){
-            int from,to,cap;
-            fscanf(fin, "%d %d %d", &from,&to,&cap);
-            add_edge(from,to,cap,0);
+        s = 0, t = n+1;
+        for(int to = 1;to <= cow_n;to++){
+            int from = s;
+            add_edge(from,to,1,0);
         }
+        for(int from = cow_n + 1;from <= n;from++){
+            int to = t;
+            add_edge(from,to,1,0);
+        }
+        for(int i = 1;i<=cow_n;i++){
+            int times;
+            fscanf(fin,"%d",&times);
+            int from = i;
+            while (times--){
+                int to;
+                fscanf(fin,"%d",&to);
+                to += cow_n;//偏移量
+                add_edge(from,to,1,0);
+            }
+        }
+    //    print_graph(n+2);
         int flow = dinic(s, t);
         printf("%d\n", flow);
     }
     return 0;
 }
+
 ```
-
-
