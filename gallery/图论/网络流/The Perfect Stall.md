@@ -188,3 +188,108 @@ int main() {
 }
 
 ```
+
+直接用最大匹配的模板也是可以的。
+速度基本一样。
+
+```C
+/*
+ * hungarian algo for maximum_matching
+ */
+#include <cstdio>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<vector<int> > lnklst;
+vector<int> l, r;
+vector<bool> visited;
+
+/* make all vectors one element bigger in case the index starts from 1 instead of 0 */
+void init(int n1, int n2) {
+    lnklst.clear(); lnklst.resize(n1+1);
+    l.clear(); l.resize(n1+1,-1);
+    r.clear(); r.resize(n2+1,-1);
+    return;
+}
+
+void add_edge(int u, int v) {
+    lnklst[u].push_back(v);
+    return;
+}
+
+bool dfs(int u) {
+    for (int i=0; i<lnklst[u].size(); i++) {
+        int v = lnklst[u][i];
+        if (visited[v]) continue;
+        visited[v] = true;
+        if (r[v] < 0 || dfs(r[v])) {
+            l[u] = v;
+            r[v] = u;
+            return true;
+        }
+    }
+    return false;
+}
+
+int greedy_match(int n1) {
+    int match = 0;
+    for (int u=0; u<n1; u++) {
+        if (l[u] < 0) {
+            for (int i=0; i<lnklst[u].size(); i++) {
+                int v = lnklst[u][i];
+                if (r[v] < 0) {
+                    l[u] = v;
+                    r[v] = u;
+                    match++;
+                    break;
+                }
+            }
+        }
+    }
+    return match;
+}
+
+int hungarian(void) {
+    int n1 = l.size();
+    int n2 = r.size();
+    int match = greedy_match(n1);
+    for (int u=0; u<n1; u++) {
+        if (l[u] < 0) {
+            visited.clear();
+            visited.resize(n2);
+            if (dfs(u)) {
+                match++;
+            }
+        }
+    }
+    return match;
+}
+
+
+int main() {
+    //freopen("path_cover.dat", "r", stdin);
+    int n, m;
+    int cow_n,stall_n;
+    while (cin >> cow_n >> stall_n) {
+        n = cow_n + stall_n;
+        init(n, n);
+        for (int i=1; i<=cow_n; i++) {
+            int u, v;
+            u = i;
+            int times;
+            cin>>times;
+            while(times--){
+                cin>>v;
+                v += cow_n;
+                add_edge(u, v);
+            }
+        }
+        int max_match = hungarian();
+        cout << max_match << endl;
+    }
+    return 0;
+}
+
+```
