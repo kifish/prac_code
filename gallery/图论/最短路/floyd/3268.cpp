@@ -1,5 +1,3 @@
-
-
 //测试用例没那么大，floyd似乎也可以
 #include<cstdio>
 const int inf=100007;
