@@ -2,3 +2,7 @@ https://blog.csdn.net/deepseazbw/article/details/81281165
 
 http://cxsjsx.openjudge.cn/2018finalexam/02/
 
+
+https://github.com/kifish/prac_code/blob/master/gallery/pat/pat-a/1040.md
+
+
