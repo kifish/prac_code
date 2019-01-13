@@ -10,7 +10,7 @@ POJ支持这样的写法，但是clion不支持。
 
 二部图染色
 
-```
+```C
 #include <iostream>
 #include <iomanip>
 #include <cmath>
