@@ -1,3 +1,5 @@
+费用等于最小割的值，而最小割的值等于最大流的值。
+
 ```C
 /*
  * Dinic algo for max flow
