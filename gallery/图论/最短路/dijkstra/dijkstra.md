@@ -26,6 +26,11 @@ dijkstra + dfs
 或者用平均点权，见算法笔记上机指南书379页。不过dijkstra + dfs 更通用，而一遍dijkstra能解决的问题必须要满足最优子结构。
 
 
+优先队列优化见：
+https://github.com/kifish/prac_code/blob/master/gallery/%E5%9B%BE%E8%AE%BA/%E6%9C%80%E7%9F%AD%E8%B7%AF/dijkstra/%E6%9C%80%E7%9F%AD%E8%B7%AF%E6%B5%8B%E8%AF%95.md
+
+
+
 
 
 
