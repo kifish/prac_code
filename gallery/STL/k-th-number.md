@@ -1,4 +1,10 @@
+https://github.com/kifish/prac_code/blob/master/gallery/%E5%88%86%E6%B2%BB/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0.md
+
+
  
+
+
+
 1.随机选择算法可以。
 2.STL有现成的。
 nth_element()函数
@@ -17,7 +23,7 @@ nth_element()函数
  
 注意：nth_element()函数仅仅是将第n大的数排好了位置，并不返回值。
 
-//nth_elementexample
+//nth_element example
 #include<iostream>//std::cout
 #include<algorithm>//std::nth_element,std::random_shuffle
 #include<vector>//std::vector
