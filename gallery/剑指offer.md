@@ -161,3 +161,59 @@ int main() {
 }
 ```
 
+```C
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+struct Node{
+    Node* left;
+    Node* right;
+    char data;
+};
+
+Node* create(){
+    Node* node = new Node();
+    node->left = node->right = NULL;
+    return node;
+}
+
+string a,b;
+Node* build(int s1,int e1,int s2,int e2){
+    char root_val = a[s1];
+    Node* root = create();
+    root->data = root_val;
+    int root_idx = 0;
+    for(int i = s2;i<=e2;i++){
+        if(b[i] == root_val){
+            root_idx = i;
+            break;
+        }
+    }
+
+    if(root_idx != s2){
+        root->left = build(s1+1,s1+root_idx-e2,s2,root_idx-1);
+    }
+    if(root_idx != e2){
+        root->right = build(s1+root_idx-s2+1,e1,root_idx+1,e2);
+    }
+    return root;
+}
+
+void postorder(Node* root){
+    if(root->left)
+        postorder(root->left);
+    if(root->right)
+        postorder(root->right);
+    cout<<root->data;
+}
+int main() {
+    while(cin>>a>>b){
+     Node* tree = build(0,a.size()-1,0,b.size()-1);
+     postorder(tree);
+     cout<<endl;
+    }
+    return 0;
+}
+```
+
