@@ -217,3 +217,98 @@ int main() {
 }
 ```
 
+```c
+struct ListNode{
+    int value;
+    ListNode* next;
+};
+void delete_node(ListNode** list_head, ListNode* to_be_delete){
+    if(!list_head || !to_be_delete)
+        return;
+
+    //要删除的结点不是尾节点
+    if(to_be_delete->next != NULL){
+        ListNode* next_node = to_be_delete->next;
+        to_be_delete->value = next_node->value;
+        to_be_delete->next = next_node->next;
+
+        delete next_node;
+        next_node = NULL;
+    }
+    // 链表只有一个结点
+    else if(*list_head == to_be_delete){
+        delete to_be_delete;
+        to_be_delete = NULL;
+        *list_head = NULL;
+    }
+    //链表有多个结点，删除尾结点
+    else{
+        ListNode* cur_node = *list_head;
+        while (cur_node->next != to_be_delete){
+            cur_node = cur_node->next;
+        }
+        cur_node->next = NULL;
+        delete to_be_delete;
+        to_be_delete = NULL;
+    }
+}
+```
+
+
+
+```C
+struct ListNode{
+    int value;
+    ListNode* next;
+};
+
+ListNode* find_kth_to_tail(ListNode* head, unsigned int k){
+    if(head == NULL || k == 0){
+        return NULL;
+    }
+    ListNode* node_ahead = head;
+    ListNode* node_behind = NULL;
+    for(unsigned int i = 0;i<k-1;i++){
+        if(node_ahead->next != NULL){
+            node_ahead = node_ahead->next;
+        }
+        else
+            return NULL;
+    }
+    node_behind = head;
+    while(node_ahead->next != NULL){
+        node_ahead = node_ahead->next;
+        node_behind = node_behind->next;
+    }
+    return node_behind;
+}
+```
+
+
+```C
+struct ListNode{
+    int value;
+    ListNode* next;
+};
+
+ListNode* reverse_list(ListNode* head){
+    if(head == NULL) return NULL;
+
+    ListNode* cur_node = head;
+    ListNode* prev_node = NULL;
+    ListNode* next_node;
+    ListNode* reverse_list_head;
+    while (cur_node != NULL){
+        if(cur_node->next == NULL){
+            reverse_list_head = cur_node;
+        }
+        next_node = cur_node->next;
+        cur_node->next = prev_node;
+
+        prev_node = cur_node;
+        cur_node = next_node;
+    }
+    return reverse_list_head;
+}
+```
+
