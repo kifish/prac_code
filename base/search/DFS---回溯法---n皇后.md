@@ -67,7 +67,8 @@ def n_queens(chessboard, col=0, count=[0]):
         if count[0] < 5:
             print_chessboard(chessboard)
         count[0] += 1
-        return 1
+        #return即可。
+        return 
 
     # Examine all available squares in column <col> (value is 0), place the queen, and
     # mark all squares under attack by that queen (use anything except 0 or 1).
