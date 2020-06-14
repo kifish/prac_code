@@ -10,9 +10,9 @@ public:
     }
     vector<vector<int>> updateMatrix(vector<vector<int>> &matrix)
     {   
-        queue<pair<int,int>> q;//�����д�ŵĴ�ȷ����С����ĵ�
-        //ԭʼmatrix���������ݣ������޸ĵ�matrix����Ӧÿ�������С����
-        //��С��������𲽱��Ż���ĳ������С���뱻�Ż����򽫸õ�������
+        queue<pair<int,int>> q;//队列中存放的待确定最小距离的点
+        //原始matrix即输入数据，正在修改的matrix即对应每个点的最小距离
+        //最小距离可以逐步被优化。某个点最小距离被优化了则将该点加入队列
         row = matrix.size();
         col = matrix[0].size();
         for(int i = 0;i<matrix.size();i++){

@@ -10,11 +10,11 @@ public:
 		int num1_bits = 0;
 		int num2_bits = 0;
         int mask = 1;
-        while((mask & bits) == 0){ //括号是必须的
+        while((mask & bits) == 0){ //鎷彿鏄繀椤荤殑
             mask <<= 1;
         }
 		for(auto num : nums){
-			if((num & mask) > 0){ //括号是必须的
+			if((num & mask) > 0){ //鎷彿鏄繀椤荤殑
                 num1_bits ^= num;
             }
 				
