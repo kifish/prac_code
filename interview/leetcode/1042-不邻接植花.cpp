@@ -5,7 +5,7 @@ class Solution
 public:
     vector<int> gardenNoAdj(int N, vector<vector<int>> &paths)
     {
-        //×¢ÒâÕâÀïµÄ»¨Ô°Â·¾¶Ö»ÊÇÖ¸Ò»Ìõ±ß£¬²»¿¼ÂÇ¶àÌõ±ßÏàÁª½ÓµÄÇé¿ö
+        //æ³¨æ„è¿™é‡Œçš„èŠ±å›­è·¯å¾„åªæ˜¯æŒ‡ä¸€æ¡è¾¹ï¼Œä¸è€ƒè™‘å¤šæ¡è¾¹ç›¸è”æ¥çš„æƒ…å†µ
         g.resize(N);
         answer.resize(N,-1);
         for(auto path:paths){

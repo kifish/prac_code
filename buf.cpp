@@ -9,6 +9,7 @@
 #include<set>
 
 typedef long long LL;
+// or #define LL long long
 
 using namespace std;
 
