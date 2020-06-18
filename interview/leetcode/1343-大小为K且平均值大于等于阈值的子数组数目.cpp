@@ -1,4 +1,4 @@
-// 这个解法是子序列，不是子数组，子数组要求连续
+// 杩欎釜瑙ｆ硶鏄瓙搴忓垪锛屼笉鏄瓙鏁扮粍锛屽瓙鏁扮粍瑕佹眰杩炵画
 // class Solution {
 // public:
 //     int cnt = 0;
@@ -110,7 +110,7 @@ public:
 
     int numOfSubarrays(vector<int>& arr, int k, int threshold) {
         sum_th = k * threshold;
-        // 滑动窗口
+        // 婊戝姩绐楀彛
         int cur_sum = 0;
         int the_first_num_idx = 0;
         int cur_v_num = 0;

@@ -2,7 +2,7 @@ class Solution
 {
 	const int MAXN = 10005;
 	int parent[10005];
-	//vector<int> parent(10005);ÕâÃ´Ğ´Ã²ËÆÓĞÎÊÌâ
+	//vector<int> parent(10005);è¿™ä¹ˆå†™è²Œä¼¼æœ‰é—®é¢˜
 	int email_id = 0;
 	map<string, int> email2id;
 	map<int, string> id2email;
@@ -11,7 +11,7 @@ class Solution
 	int person_id = 0;
 
 public:
-	//emailµØÖ·ÊÇÎ¨Ò»µÄ£¬emailÓ³ÉäÎªid£¬idÁ¬Í¨µÄÒ»¸ö·ÖÁ¿¼´¶ÔÓ¦ÁËÒ»¸öÎ¨Ò»µÄÓÃ»§
+	//emailåœ°å€æ˜¯å”¯ä¸€çš„ï¼Œemailæ˜ å°„ä¸ºidï¼Œidè¿é€šçš„ä¸€ä¸ªåˆ†é‡å³å¯¹åº”äº†ä¸€ä¸ªå”¯ä¸€çš„ç”¨æˆ·
 	int find_parent(int x)
 	{
 		if (parent[x] != x)
@@ -49,7 +49,7 @@ public:
 				}
 				if (i != 1)
 				{
-					//ºÏ²¢
+					//åˆå¹¶
 					int a = email2id[account[1]];
 					int b = email2id[account[i]];
 					int roota = find_parent(a);
