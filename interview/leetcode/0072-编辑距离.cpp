@@ -5,7 +5,7 @@ public:
     {
         int m = word1.size();
         int n = word2.size();
-        vector<vector<int>> dp(m+1,vector<int>(n+1,0));//dp[m][n]����word1����m���ַ���word2����n���ַ�Ϊֹ�ı༭���룬����֮����Щ�ַ����Ѿ���ƥ�䣬�����ٿ���
+        vector<vector<int>> dp(m+1,vector<int>(n+1,0));//dp[m][n]代表word1到第m个字符、word2到第n个字符为止的编辑距离，换言之，这些字符都已经被匹配，无需再考虑
         for(int i = 1;i<=m;i++){
             dp[i][0] = i;
         }

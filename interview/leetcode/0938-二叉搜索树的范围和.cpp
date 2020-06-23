@@ -10,7 +10,7 @@
 class Solution {
 public:
     int rangeSumBST(TreeNode* root, int L, int R) {
-        //¿ÉÒÔÍ¨¹ýÖÐÐò±éÀúÒ²¿ÉÒÔÍ¨¹ýµÝ¹é¡£
+        //å¯ä»¥é€šè¿‡ä¸­åºéåŽ†ä¹Ÿå¯ä»¥é€šè¿‡é€’å½’ã€‚
         if(!root) return 0;
         if(root->val < L) return rangeSumBST(root->right,L,R);
         else if(root->val > R) return rangeSumBST(root->left,L,R);

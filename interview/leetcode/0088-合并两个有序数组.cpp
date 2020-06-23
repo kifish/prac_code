@@ -1,3 +1,15 @@
+
+
+
+// 88. 合并两个有序数组
+
+// 来自 <https://leetcode-cn.com/problems/merge-sorted-array/> 
+
+
+// 从大到小合并是最佳解法。
+
+
+
 class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {

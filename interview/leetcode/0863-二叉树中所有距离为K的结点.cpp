@@ -1,9 +1,9 @@
 class Solution
 {
-	//×ª»¯³ÉÍ¼£¬È»ºóbfs¼´¿É¡£Ò²ÓĞÖ±½ÓÓÃ¶ş²æÊ÷×öµÄ·½·¨,Ã»¿´¶®¡£
+	//è½¬åŒ–æˆå›¾ï¼Œç„¶åbfså³å¯ã€‚ä¹Ÿæœ‰ç›´æ¥ç”¨äºŒå‰æ ‘åšçš„æ–¹æ³•,æ²¡çœ‹æ‡‚ã€‚
 private:
-	vector<vector<int>> G;//private³õÊ¼»¯¿ÉÄÜÓĞÏŞÖÆ
-	bool was_inqueue[501];//ÔÚ¶ÓÁĞÖĞ»òÒÑ¾­³ö¶ÓÁĞ
+	vector<vector<int>> G;//privateåˆå§‹åŒ–å¯èƒ½æœ‰é™åˆ¶
+	bool was_inqueue[501];//åœ¨é˜Ÿåˆ—ä¸­æˆ–å·²ç»å‡ºé˜Ÿåˆ—
 	int k;
 	vector<int> res;
 public:
@@ -82,10 +82,10 @@ struct TreeNode {
 };
 class Solution
 {
-	//×ª»¯³ÉÍ¼£¬È»ºóbfs¼´¿É¡£Ò²ÓĞÖ±½ÓÓÃ¶ş²æÊ÷×öµÄ·½·¨,Ã»¿´¶®¡£
+	//è½¬åŒ–æˆå›¾ï¼Œç„¶åbfså³å¯ã€‚ä¹Ÿæœ‰ç›´æ¥ç”¨äºŒå‰æ ‘åšçš„æ–¹æ³•,æ²¡çœ‹æ‡‚ã€‚
 private:
-	vector<vector<int>> G;//private³õÊ¼»¯¿ÉÄÜÓĞÏŞÖÆ
-	bool was_inqueue[501];//ÔÚ¶ÓÁĞÖĞ»òÒÑ¾­³ö¶ÓÁĞ
+	vector<vector<int>> G;//privateåˆå§‹åŒ–å¯èƒ½æœ‰é™åˆ¶
+	bool was_inqueue[501];//åœ¨é˜Ÿåˆ—ä¸­æˆ–å·²ç»å‡ºé˜Ÿåˆ—
 	int k;
 	vector<int> res;
 public:
