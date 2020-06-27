@@ -1,6 +1,7 @@
 
 
 Untitled.ipynb
+buf
 
 # visual studio
 *.user
@@ -11,8 +12,6 @@ Untitled.ipynb
 *.vs
 
 *.exe 
-
-
 
 .DS_Store
 .vscode
@@ -28,6 +27,8 @@ algs4/algs4-data/
 
 # BlueJ files
 *.ctxt
+
+
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
