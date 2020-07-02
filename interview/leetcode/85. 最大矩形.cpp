@@ -30,15 +30,18 @@ public:
 
     int largestRectangleArea(vector<int>& heights) {
         stack<int> S;
-        //heights 前面的0和 最后的0 从调用的地方补
+        // heights 前面的0和 最后的0 从调用的地方补
+        // 前后补0处理边界情况; 否则边界情况会写起来很麻烦
+        // 单调栈求最大矩形
+        // 单调递增栈
         int ret = 0;
         for(int i =  0;i<heights.size();i++){
             int cur_height = heights[i];
             while(!S.empty() && cur_height < heights[S.top()]){
-                int right = i - 1;
+                int right = i - 1; // 可以确认heights[S.top()]的右边界了
                 int the_height = heights[S.top()];
                 S.pop();
-                int left = S.top() + 1;
+                int left = S.top() + 1; // 这里的+1很关键, 注意是left才是左边界
                 ret = max(ret, (right - left + 1) * the_height);
             }
             S.push(i);

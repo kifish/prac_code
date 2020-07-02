@@ -36,7 +36,7 @@ public:
         if(board.empty()) return;
 		row = board.size();
 		col = board[0].size();
-		dummy_node = row * col; //ÓëdummynodeÁªÍ¨µÄO²»ĞèÒªĞŞ¸Ä;Óëdummynode²»ÁªÍ¨µÄO£¨ËµÃ÷±»X°üÎ§ÁË£©ĞèÒªĞŞ¸Ä
+		dummy_node = row * col; //ä¸dummynodeè”é€šçš„Oä¸éœ€è¦ä¿®æ”¹;ä¸dummynodeä¸è”é€šçš„Oï¼ˆè¯´æ˜è¢«XåŒ…å›´äº†ï¼‰éœ€è¦ä¿®æ”¹
 		node_cnt = row * col + 1;
 		init();
 
@@ -48,7 +48,7 @@ public:
 						parent[roota] = dummy_node;
 					}
 					else {
-						//ÉÏÏÂ×óÓÒ
+						//ä¸Šä¸‹å·¦å³
 						int new_x, new_y;
 						for (int k = 0; k < 4; k++) {
 							new_x = i + dx[k];
@@ -57,7 +57,7 @@ public:
 								int roota = find_parent(xytoID(new_x, new_y));
 								int rootb = find_parent(xytoID(i, j));
 								if (roota != rootb) {
-									//±ÜÃâdummy_node¸ù±»ĞŞ¸Ä
+									//é¿å…dummy_nodeæ ¹è¢«ä¿®æ”¹
 									if (roota != dummy_node)
 										parent[roota] = rootb;
 									else parent[rootb] = roota;
