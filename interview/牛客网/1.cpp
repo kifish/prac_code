@@ -1,6 +1,5 @@
 #include<bits/stdc++.h>
 
-
 // c++11(clang++ 3.9)
 
 using namespace std;

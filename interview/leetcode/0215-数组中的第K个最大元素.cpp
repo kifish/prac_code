@@ -1,4 +1,4 @@
-//stlĞ´·¨£»ac
+//stlå†™æ³•ï¼›ac
 //http://c.biancheng.net/view/566.html
 // class Solution
 // {
@@ -29,10 +29,10 @@ public:
                 return nums[idx];
             }
         }
-        return -1;//²»»á½øÈë¸Ã·ÖÖ§
+        return -1;//ä¸ä¼šè¿›å…¥è¯¥åˆ†æ”¯
     }
     int partition(vector<int>& nums,int lo,int hi){
-        //ÌØÅĞ
+        //ç‰¹åˆ¤
         if(lo == hi - 1){
             if(nums[lo] <= nums[hi]){
                 return lo;
@@ -47,13 +47,13 @@ public:
         int pivot = nums[lo];
         int i = lo + 1;
         int j = hi;
-        while(i<=j){//ÕâÀïÊÇi<=j ²»ÊÇ i<j;¾ÙÀı ¶Ô[2,1,3]partition
+        while(i<=j){//è¿™é‡Œæ˜¯i<=j ä¸æ˜¯ i<j;ä¸¾ä¾‹ å¯¹[2,1,3]partition
             while(i<hi && nums[i] <= pivot) i++;
             while(j>lo && nums[j] >= pivot) j--;
             if(i < j) swap(nums[i++],nums[j--]);
             else break;
         }
-        swap(nums[lo],nums[j]);//µ±lo = hi - 1µÄÊ±ºò£¬ÕâÃ´Ğ´»á³ö´í¡£
+        swap(nums[lo],nums[j]);//å½“lo = hi - 1çš„æ—¶å€™ï¼Œè¿™ä¹ˆå†™ä¼šå‡ºé”™ã€‚
         return j;
     }
 };
