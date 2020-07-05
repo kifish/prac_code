@@ -123,12 +123,12 @@ public:
 
     int coinChange(vector<int>& coins, int amount) {
         if(coins.size() == 0) return -1;
-
+        // dp[i][j]: 考虑到第i个硬币凑j元需要的最少硬币个数
         vector<vector<int>> dp(coins.size(), vector<int> (amount + 1, INT_MAX - 1));
         for(int i = 0;i<coins.size();i++){
             dp[i][0] = 0;
         }
-        for(int j = 1;j <= amount;j++){
+        for(int j = 1;j <= amount;j++){ // 这个初始化在数学意义上也是对的
             if(j % coins[0] == 0){
                 dp[0][j] = j / coins[0];
             }
@@ -136,7 +136,7 @@ public:
 
 
         // 注意, 这道题是无穷背包, 完全可以压缩成一维dp, 且更新方向是正向的, j从1更新到amount
-        for(int i = 1;i<coins.size();i++){
+        for(int i = 1;i<coins.size();i++){ // 不用考虑第一种硬币了
             for(int j = 1;j<= amount;j++){
                 dp[i][j] = dp[i-1][j]; // 最坏的情况
                 if(j - coins[i] >= 0){

@@ -1,7 +1,3 @@
-
-
-
-
 def bubble_sort(arr):
     a = arr.copy()
     n = len(a)
@@ -14,8 +10,6 @@ def bubble_sort(arr):
         if not swapped:
             break
     return a
-
-
 
 def select_sort(arr):
     a = arr.copy()
@@ -53,7 +47,6 @@ def insert_sort(arr):
 插入排序有点类似冒泡.插入排序和冒泡排序的区别是?
 每次循环,插入排序是选下一个元素,然后插入到已排序序列(可能是内部).插入排序是n-1次插入的结果.
 冒泡排序永远是选最后一个元素,因此两者起始位置不一样,然后比较到已排序序列(边缘),不需要到已排序队列[:-1]里面比,因此两者终点位置也不一样.冒泡排序是n-1次冒泡的结果.
-
 
 插入排序更适用于部分有序的数组(若数组中的大部分元素都已经有序,则可以接近O(n)),shell排序是基于此的改进.当然子排序法也可以换成冒泡排序等其他排序.
 假设最小的元素在序列最后,那么最小的元素需要比较n-1次之后,才能到正确的位置(队首),shell排序增大了比较和交换的间隔,相当于较少了turtle元素的比较
@@ -161,7 +154,6 @@ def shell_sort3(arr):
     return a
 
 
-
 def shell_sort4(arr):
     a = arr.copy()
     # print(a)
@@ -196,6 +188,7 @@ def merge_sort(arr):
     left_part = merge_sort(a[:mid])
     right_part = merge_sort(a[mid:])
     return merge(left_part,right_part)
+
 def merge(left_part,right_part):
     i,j = 0,0
     res = []
@@ -211,8 +204,6 @@ def merge(left_part,right_part):
     else:
         res += right_part[j:]
     return res 
-
-
 
 
 def quicksort(arr):

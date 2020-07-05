@@ -1,9 +1,5 @@
 https://leetcode-cn.com/company/bytedance/
 
-`#include <bits/stdc++.h>`
-
-
-
 
 440. 字典序的第K小数字
 
@@ -370,9 +366,6 @@ slots2[i][0] < slots2[i][1]
 33. 搜索旋转排序数组
 
 
-
-
-
 31. 下一个排列
 
 
@@ -381,4 +374,6 @@ slots2[i][0] < slots2[i][1]
 
 152. 乘积最大子数组
 
+
+41. 缺失的第一个正数 
 

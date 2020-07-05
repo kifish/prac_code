@@ -1,6 +1,3 @@
-
-
-
 // WA
 
 // class Solution {
@@ -59,12 +56,7 @@ https://leetcode-cn.com/problems/maximum-product-subarray/solution/cheng-ji-zui-
 
 注意, 这个是整数数组
 
-
-
-
 这题转移的来源有3个。
-
-
 
 执行用时：
 12 ms
@@ -81,12 +73,8 @@ https://leetcode-cn.com/problems/maximum-product-subarray/solution/cheng-ji-zui-
 */
 
 
-
 class Solution {
 public:
-
-
-
     int maxProduct(vector<int>& nums) {
         if(nums.size() == 0) return 0;
         vector<int> dp_max(nums); // copy

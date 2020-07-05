@@ -1,7 +1,7 @@
 // bellman-ford
-// recall that ³£¼ûµÄbfËã·¨ÆäÊµÒÑ¾­ÓÅ»¯¹ıÁË
+// recall that å¸¸è§çš„bfç®—æ³•å…¶å®å·²ç»ä¼˜åŒ–è¿‡äº†
 //dp[n][i][j] = min(dp[n-1][i][k] + dp[n-1][k][j], dp[n-1][i][j])
-//n´ú±íÁË×î¶à¾­¹ıµÄ±ßÊı
+//nä»£è¡¨äº†æœ€å¤šç»è¿‡çš„è¾¹æ•°
 class Solution
 {
 public:
@@ -9,7 +9,7 @@ public:
     {
         vector<int> dist(n,INT_MAX);
         dist[src] = 0;
-        int cnt = K + 1; // K = 0Ôò´ú±í±ØĞëÖ±´ï,K=0Ê±Òª×öÒ»ÂÖrelax
+        int cnt = K + 1; // K = 0åˆ™ä»£è¡¨å¿…é¡»ç›´è¾¾,K=0æ—¶è¦åšä¸€è½®relax
         while(cnt--){
             vector<int> new_dist(dist);
             for(auto flight : flights){
@@ -17,9 +17,9 @@ public:
                 int v = flight[1];
                 int cost = flight[2];
                 if(dist[u] == INT_MAX || cost == INT_MAX) continue;
-                new_dist[v] = min(new_dist[v], dist[u] + cost); //×¢ÒâÕâÀïµÄrelax
+                new_dist[v] = min(new_dist[v], dist[u] + cost); //æ³¨æ„è¿™é‡Œçš„relax
             }
-            dist = new_dist;//¹ö¶¯Êı×é£¬·ÀÖ¹relaxÓÃµ½ÁËÒÑ¾­ÓÅ»¯ºóµÄ½á¹û
+            dist = new_dist;//æ»šåŠ¨æ•°ç»„ï¼Œé˜²æ­¢relaxç”¨åˆ°äº†å·²ç»ä¼˜åŒ–åçš„ç»“æœ
         }
         if(dist[dst] == INT_MAX) return -1;
         return dist[dst];
