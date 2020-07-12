@@ -29,48 +29,93 @@ int get_the_right_door(vector<int> & doors, vector<bool> & opened, int cur_room)
 
 // 双端队列模拟? 貌似只需要双指针
 
+// 第一个test set AC; 第二个test set TLE
+// int count(vector<int> & doors, int s, int k){    
+//     vector<int> room_order;
+//     room_order.push_back(s);
+//     if(k == 1) return s;
+
+//     // vector<bool> opened;
+//     int left,right;
+//     left = s-1;
+//     right = s;
+//     while(left >= 1 && right < doors.size()){ // doors padding 过
+//         if(doors[left] < doors[right]){
+//             // go left
+//             room_order.push_back(left);
+//             left--;
+//             if(room_order.size() == k){
+//                 return room_order.back();
+//             }
+//         }
+//         else{
+//             // go right
+//             room_order.push_back(right+1);
+//             right++;
+//             if(room_order.size() == k){
+//                 return room_order.back();
+//             }
+//         }
+//     }
+//     while(left >= 1){
+//         room_order.push_back(left);
+//         left--;
+//         if(room_order.size() == k){
+//             return room_order.back();
+//         }
+//     }
+//     while(right < doors.size()){
+//         room_order.push_back(right+1);
+//         right++;
+//         if(room_order.size() == k){
+//             return room_order.back();
+//         }
+//     }
+// }
+
+// 优化
+// 结果没变
+// 第一个test set AC; 第二个test set TLE
 int count(vector<int> & doors, int s, int k){    
-    vector<int> room_order;
-    room_order.push_back(s);
     if(k == 1) return s;
 
-    // vector<bool> opened;
     int left,right;
     left = s-1;
     right = s;
     while(left >= 1 && right < doors.size()){ // doors padding 过
         if(doors[left] < doors[right]){
             // go left
-            room_order.push_back(left);
             left--;
-            if(room_order.size() == k){
-                return room_order.back();
+            k--;
+            if(k == 1){
+                return left+1;
             }
         }
         else{
             // go right
-            room_order.push_back(right+1);
             right++;
-            if(room_order.size() == k){
-                return room_order.back();
+            k--;
+            if(k == 1){
+                return right;
             }
         }
     }
     while(left >= 1){
-        room_order.push_back(left);
         left--;
-        if(room_order.size() == k){
-            return room_order.back();
+        k--;
+        if(k == 1){
+            return left+1;
         }
     }
     while(right < doors.size()){
-        room_order.push_back(right+1);
         right++;
-        if(room_order.size() == k){
-            return room_order.back();
+        k--;
+        if(k == 1){
+            return right;
         }
     }
 }
+
 
 
 
