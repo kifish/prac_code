@@ -1,3 +1,14 @@
+/*
+
+纵向扫描即可。
+
+这题还是很适合面试的。
+
+*/
+
+
+
+
 class Solution {
 public:
     bool check(vector<string>& strs,int k){
