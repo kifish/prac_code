@@ -1,4 +1,11 @@
 /*
+
+
+https://leetcode-cn.com/problems/trapping-rain-water/
+
+https://leetcode-cn.com/explore/interview/card/bytedance/243/array-and-sorting/1047/
+
+
 https://leetcode-cn.com/problems/trapping-rain-water/solution/jie-yu-shui-by-leetcode/
 
 

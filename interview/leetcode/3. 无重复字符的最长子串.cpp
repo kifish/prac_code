@@ -51,6 +51,7 @@
 // 100.00%
 // 的用户
 
+// https://leetcode-cn.com/explore/interview/card/bytedance/242/string/1012/
 
 class Solution {
 public:
@@ -75,7 +76,7 @@ public:
                 window[left_c]--;
                 left++;
 
-                if(left == right){ // right一开始就了1 因此无需考虑left超过right, 相等即可break
+                if(left == right){ // right一开始就为1了;因此无需考虑left超过right, 相等即可break
                     break;
                 }
                 // 实际上这个if判断也可以去掉

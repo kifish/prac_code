@@ -1,7 +1,16 @@
 
+/*
+
+https://leetcode-cn.com/problems/merge-intervals/
+
+https://leetcode-cn.com/explore/interview/card/bytedance/243/array-and-sorting/1046/
+
+
+*/
+
 
 // 以前也做过类似的题目:
-// gallery\贪心\区间合并.md
+// gallery/贪心/区间合并.md
 
 // 执行用时 :
 // 48 ms
@@ -14,6 +23,7 @@
 // 100.00%
 // 的用户
 
+// 这个写法其实不是很高效
 class Solution {
 public:
     static bool cmp(const vector<int> & a, const vector<int> & b){

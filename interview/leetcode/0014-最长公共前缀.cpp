@@ -7,6 +7,8 @@
 */
 
 
+// https://leetcode-cn.com/explore/interview/card/bytedance/242/string/1014/
+// 归并也可以
 
 
 class Solution {

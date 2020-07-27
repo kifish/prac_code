@@ -6,6 +6,12 @@
 https://leetcode-cn.com/problems/search-in-rotated-sorted-array/solution/yi-wen-jie-jue-4-dao-sou-suo-xuan-zhuan-pai-xu-s-2/
 
 
+https://leetcode-cn.com/problems/search-in-rotated-sorted-array/
+
+https://leetcode-cn.com/explore/interview/card/bytedance/243/array-and-sorting/1017/
+
+
+
 示例 1:
 输入: nums = [4,5,6,7,0,1,2], target = 0
 输出: 4

@@ -1,3 +1,17 @@
+
+/*
+
+Áõ∏ÂΩìÁªèÂÖ∏ÁöÑÈ¢òÁõÆ
+
+
+https://leetcode-cn.com/explore/interview/card/bytedance/247/bonus/1045/
+
+https://leetcode-cn.com/problems/sqrtx/
+
+
+*/
+
+
 class Solution {
 public:
     int mySqrt(int x) {
@@ -11,9 +25,9 @@ public:
             int tmp2 = x / (mid + 1);
             if(tmp == mid) return mid;
             else if(tmp > mid && tmp2 < mid) return mid;
-            else if(tmp < mid) hi = mid;
+            else if(tmp < mid) hi = mid; // tmp ËøáÂ∞è -> mid ËøáÂ§ß -> Áº©Â∞èhi
             else lo = mid + 1;
         }
-        return lo-1;//≤ªª·µΩ¥Ô’‚“ª∑÷÷ß
+        return lo-1;//IMPORTANT
     }
 };

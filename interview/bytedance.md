@@ -377,3 +377,9 @@ slots2[i][0] < slots2[i][1]
 
 41. 缺失的第一个正数 
 
+
+
+
+
+https://leetcode-cn.com/explore/interview/card/bytedance/242/string/1014/
+

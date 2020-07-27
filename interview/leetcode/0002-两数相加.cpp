@@ -1,3 +1,12 @@
+
+/*
+
+https://leetcode-cn.com/explore/interview/card/bytedance/244/linked-list-and-tree/1022/
+
+https://leetcode-cn.com/problems/add-two-numbers/
+
+*/
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -42,7 +51,7 @@ public:
         if(carry){
             ListNode* new_node_p = new ListNode(carry);
             cur_node_p->next = new_node_p;
-            cur_node_p = cur_node_p->next; //safety
+            cur_node_p = cur_node_p->next; //safety; 不加这一行应该也没问题
         }
         return dummy_head->next;
     }

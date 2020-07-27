@@ -1,3 +1,14 @@
+/*
+
+
+https://leetcode-cn.com/explore/interview/card/bytedance/245/data-structure/1032/
+
+https://leetcode-cn.com/problems/lru-cache/
+
+
+*/
+
+
 
 /**
  * Your LRUCache object will be instantiated and called as such:
@@ -29,11 +40,13 @@ public:
     {
         auto it = m.find(key);
         if(it != m.end()) l.erase(it->second);
+
         if(l.size() == cap){
             int k = l.rbegin()->first;
             l.pop_back();
-            m.erase(k); //map可以根据key值和迭代器值移除，查找
+            m.erase(k); //map鍙互鏍规嵁key鍊煎拰杩唬鍣ㄥ�肩Щ闄わ紝鏌ユ壘
         }
+        
         l.push_front(make_pair(key,value));
         m[key] = l.begin();
     }

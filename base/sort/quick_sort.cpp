@@ -21,8 +21,8 @@ https://www.nowcoder.com/questionTerminal/508f66c6c93d4191ab25151066cb50ef
 //     while(i < j){
 //         i++; 
 //         j--; 
-//         while(nums[i] < pivot && i < hi) i++; // 加了等号会出现bug; 具体如何优化相等的数过多的情况见三路快排
-//         while(nums[j] > pivot && j > lo) j--; // 加了等号会出现bug; 具体如何优化相等的数过多的情况见三路快排
+//         while(nums[i] < pivot && i < hi) i++; // nums[i] < pivot 加了等号会出现bug; 具体如何优化相等的数过多的情况见三路快排
+//         while(nums[j] > pivot && j > lo) j--; // nums[j] > pivot 加了等号会出现bug; 具体如何优化相等的数过多的情况见三路快排
 
 //         if(i < j){
 //             swap(nums[i], nums[j]);
@@ -61,6 +61,20 @@ https://www.nowcoder.com/questionTerminal/508f66c6c93d4191ab25151066cb50ef
 //     swap(nums[lo], nums[j]);
 //     return j;
 // }
+// bug case举例
+// 1 0 0 0 0 0 2 2
+// 做第一次交换的时候
+// 1 0 0 0 0 0 2 2
+//             i j
+// 完成交换  
+// 1 0 0 0 0 0 2 2
+// 下一次循环
+// 1 0 0 0 0 0 2 2
+//             j i
+
+// 2 0 0 0 0 0 1 2
+// 出现bug
+
 
 
 // AC
