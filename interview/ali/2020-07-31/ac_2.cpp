@@ -105,12 +105,14 @@ int get_dis(int sx,int sy, int ex, int ey){
                 }
 
                 if(new_dis < dis[new_x][new_y]){
-                    pre[new_x][new_y] = Point(tmp.x, tmp.y); // debug
                     tmp.x = new_x;
                     tmp.y = new_y;
                     tmp.cur_dis = new_dis;
                     dis[new_x][new_y] = new_dis;
                     q.push(tmp);
+
+                    // debug
+
                 }
             }
         }
@@ -130,7 +132,6 @@ void traceback(int ex, int ey){
         ex = pre[ex][ey].x;
         ey = pre[ex][ey].y;
     }
-    cout<<endl;
 }
 
 
