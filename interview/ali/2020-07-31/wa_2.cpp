@@ -58,8 +58,8 @@ bool valid(int x,int y){
 }
 
 
-int dx[4] = {0,1,-1,0};
-int dy[4] = {1,0,0,-1};
+int dx[4] = {0, 1, -1, 0};
+int dy[4] = {1, 0, 0, -1};
 
 
 
@@ -89,7 +89,11 @@ int get_dis(int sx,int sy, int ex, int ey){
         for(int i = 0; i<4; i++){
             int new_x = tmp.x + dx[i];
             int new_y = tmp.y + dy[i];
+            cout<<"-------------"<<endl;
+            cout<<"now: "<<"("<<tmp.x<<","<<tmp.y<<")"<<" "<<M[tmp.x][tmp.y]<<endl;
+            
             if(valid(new_x, new_y)){
+                cout<<"neighbor: "<<"("<<new_x<<","<<new_y<<")"<<" "<<M[new_x][new_y]<<endl;
                 int new_dis = tmp.cur_dis;
                 if(M[tmp.x][tmp.y] == 'C'){ // 陆地
                     if(M[new_x][new_y] == 'C'){
@@ -103,7 +107,14 @@ int get_dis(int sx,int sy, int ex, int ey){
                     }
                     else new_dis += 5;
                 }
+                /*
+                同一个错误犯了2次了, 19年1月机试也犯过同样的错误,(gallery/百炼oj/2018算法分析期末考试.md)
+                其实不止2次: (gallery/搜索/bfs/Dungeon Master.md)
+                为了省一个变量, 或者说少写点变量, 复用了tmp
+                导致出错。
 
+                写bfs如果省变量很容易犯这个错误。
+                */
                 if(new_dis < dis[new_x][new_y]){
                     pre[new_x][new_y] = Point(tmp.x, tmp.y); // debug
                     tmp.x = new_x;
@@ -127,8 +138,10 @@ void traceback(int ex, int ey){
     {
         cout<<"->";
         cout<<"("<<pre[ex][ey].x<<","<<pre[ex][ey].y<<")";
-        ex = pre[ex][ey].x;
-        ey = pre[ex][ey].y;
+        int tmp_x = pre[ex][ey].x;
+        int tmp_y = pre[ex][ey].y;
+        ex = tmp_x;
+        ey = tmp_y;
     }
     cout<<endl;
 }
@@ -155,6 +168,8 @@ int main() {
             cin>>sx>>sy>>ex>>ey;
             int ret = get_dis(sx,sy,ex,ey);
             traceback(ex,ey);
+            traceback(1,2);
+            traceback(2,2);
             cout<<ret<<endl;
         }
     }

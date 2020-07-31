@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// #define DEBUG
+
 /*
 
 
@@ -40,7 +42,9 @@ struct Point
    Point(int x,int y):x(x),y(y){}
 };
 
+#ifdef DEBUG
 vector<vector<Point>> pre(505,vector<Point>(505, Point(0,0)));
+#endif
 
 struct Node
 {
@@ -58,8 +62,8 @@ bool valid(int x,int y){
 }
 
 
-int dx[4] = {0,1,-1,0};
-int dy[4] = {1,0,0,-1};
+int dx[4] = {0, 1, -1, 0};
+int dy[4] = {1, 0, 0, -1};
 
 
 
@@ -68,7 +72,9 @@ void init(){
     for(int i = 1;i<=n;i++){
         for(int j = 1;j<=m;j++){
             dis[i][j] = INT_MAX;
+            #ifdef DEBUG
             pre[i][j] = Point(i,j); // debug
+            #endif
         }
     }
 }
@@ -86,12 +92,23 @@ int get_dis(int sx,int sy, int ex, int ey){
     while(!q.empty()){
         tmp = q.front();
         q.pop();
+        int cur_x = tmp.x;
+        int cur_y = tmp.y;
+        int cur_dis = tmp.cur_dis;
         for(int i = 0; i<4; i++){
-            int new_x = tmp.x + dx[i];
-            int new_y = tmp.y + dy[i];
+            int new_x = cur_x + dx[i];
+            int new_y = cur_y + dy[i];
+            #ifdef DEBUG
+            cout<<"-------------"<<endl;
+            cout<<"now: "<<"("<<cur_x<<","<<cur_y<<")"<<" "<<M[cur_x][cur_y]<<endl;
+            #endif
+
             if(valid(new_x, new_y)){
-                int new_dis = tmp.cur_dis;
-                if(M[tmp.x][tmp.y] == 'C'){ // 陆地
+                #ifdef DEBUG
+                cout<<"neighbor: "<<"("<<new_x<<","<<new_y<<")"<<" "<<M[new_x][new_y]<<endl;
+                #endif
+                int new_dis = cur_dis;
+                if(M[cur_x][cur_y] == 'C'){ // 陆地
                     if(M[new_x][new_y] == 'C'){
                         new_dis += 3;
                     }
@@ -105,14 +122,14 @@ int get_dis(int sx,int sy, int ex, int ey){
                 }
 
                 if(new_dis < dis[new_x][new_y]){
+                    #ifdef DEBUG
+                    pre[new_x][new_y] = Point(cur_x, cur_y); 
+                    #endif
                     tmp.x = new_x;
                     tmp.y = new_y;
                     tmp.cur_dis = new_dis;
                     dis[new_x][new_y] = new_dis;
                     q.push(tmp);
-
-                    // debug
-
                 }
             }
         }
@@ -121,7 +138,7 @@ int get_dis(int sx,int sy, int ex, int ey){
 }
 
 
-
+#ifdef DEBUG
 void traceback(int ex, int ey){
     cout<<"("<<ex<<","<<ey<<")";
 
@@ -129,11 +146,14 @@ void traceback(int ex, int ey){
     {
         cout<<"->";
         cout<<"("<<pre[ex][ey].x<<","<<pre[ex][ey].y<<")";
-        ex = pre[ex][ey].x;
-        ey = pre[ex][ey].y;
+        int tmp_x = pre[ex][ey].x;
+        int tmp_y = pre[ex][ey].y;
+        ex = tmp_x;
+        ey = tmp_y;
     }
+    cout<<endl;
 }
-
+#endif
 
 
 
@@ -155,7 +175,12 @@ int main() {
             int sx,sy,ex,ey;
             cin>>sx>>sy>>ex>>ey;
             int ret = get_dis(sx,sy,ex,ey);
+            #ifdef DEBUG
             traceback(ex,ey);
+            traceback(1,2);
+            traceback(2,1);
+            traceback(2,2);
+            #endif
             cout<<ret<<endl;
         }
     }

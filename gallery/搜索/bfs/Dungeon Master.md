@@ -35,7 +35,7 @@ void bfs(int x,int y,int z){
     while (!q.empty()){
         Node cur_node = q.front();
         q.pop();
-        x = cur_node.x;//一开始忘记加这三行了，导致x,y,z一直是起始点的坐标。
+        x = cur_node.x;//一开始忘记加这三行了，导致x,y,z一直是起始点的坐标。 // 2020-07-31回顾, 看来一开始写bfs的时候就犯过这个错误
         y = cur_node.y;
         z = cur_node.z;
         for(int i = 0;i<6;i++){
