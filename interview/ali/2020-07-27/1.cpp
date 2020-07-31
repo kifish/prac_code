@@ -79,6 +79,8 @@ void cal(vector<int> & nums){
         cout<<"NIUMEI"<<endl; // b
     return;
 }
+
+//TODO
 int main() {
 	std::ios::sync_with_stdio(false);
 
