@@ -85,6 +85,20 @@ int main() {
 
 
 AC 50%
+
+
+https://www.nowcoder.com/discuss/464541?type=post&order=create&pos=&page=0&channel=0&source_id=search_post
+
+
+https://exam.nowcoder.com/cts/17086792/summary?id=F9BC69729C67A272
+
+出题人的意思是自己的奖券也可以不选。 :)
+
+
+
+
+
+
 */
 
 
