@@ -6,14 +6,12 @@ typedef long long LL;
 using namespace std;
 
 
-
-
 const int MOD = 1e9 + 3;
-const int MAXN = 1e5 + 5;
+// const int MAXN = 1e5 + 5;
+const int MAXN = 1e6 + 5;
 
 
 int root_idx;
-int n;
 struct Node
 {
     int val;
@@ -21,20 +19,19 @@ struct Node
 }nodes[MAXN];
 
 
-int ret_opt;
-
-void cal(int root_idx){
-    cal_recur(root_idx);
-}
+LL ret_opt;
 
 
-int cal_recur(int idx){
-    int ret = nodes[idx].val % MOD;
+// 先序遍历
+// 左右根
+LL cal_recur(int idx){
+    LL ret = nodes[idx].val % MOD;
 
     for(auto child : nodes[idx].children){
-        int tmp = cal_recur(child) % MOD;
+        LL tmp = cal_recur(child);
         if(tmp > 0){
-            ret += tmp % MOD;
+            tmp %= MOD;
+            ret += tmp;
             ret %= MOD;
         }
     }
@@ -43,11 +40,12 @@ int cal_recur(int idx){
     return ret;
 }
 
+
 int main() {
 	std::ios::sync_with_stdio(false);
     int n;
     Node tmp;
-    while (cin>>n){   
+    while(cin>>n){   
 
         for(int i = 1;i<=n;i++){
             nodes[i].children.clear();
@@ -66,8 +64,9 @@ int main() {
                 nodes[from].children.push_back(i);
             }
         }
+
         ret_opt = INT_MIN;
-        cal(root_idx);
+        cal_recur(root_idx);
         cout<<ret_opt<<endl;
     }
 	return 0;
@@ -81,11 +80,11 @@ int main() {
 -1 2
 
 
-
-
-
 3
 
+
+
+AC 50%
 */
 
 

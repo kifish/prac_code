@@ -23,9 +23,6 @@ struct Node
 
 int ret_opt;
 
-void cal(int root_idx){
-    cal_recur(root_idx);
-}
 
 
 int cal_recur(int idx){
@@ -42,6 +39,11 @@ int cal_recur(int idx){
     ret_opt = max(ret_opt, ret);
     return ret;
 }
+
+void cal(int root_idx){
+    cal_recur(root_idx);
+}
+
 
 int main() {
 	std::ios::sync_with_stdio(false);
@@ -85,6 +87,8 @@ int main() {
 
 
 3
+
+AC 50%
 
 */
 
