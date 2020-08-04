@@ -95,8 +95,11 @@ https://exam.nowcoder.com/cts/17086792/summary?id=F9BC69729C67A272
 出题人的意思是自己的奖券也可以不选。 :)
 
 
+这里给的解法是, root的奖券必须选, 必须从root出发。
+https://blog.csdn.net/qq_22522375/article/details/107736641
 
 
+看题意怎么理解了  :)
 
 
 */

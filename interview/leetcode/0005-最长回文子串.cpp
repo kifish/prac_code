@@ -7,6 +7,7 @@ public:
 		for(int start = 0;start<s.size();start++){
 			is_pal[start][start] = true;
 			if(res.size() == 0) res = s[start];
+
 			if(start +1 < (int)s.size()){
 				if(s[start] == s[start + 1]) {
 					is_pal[start][start + 1] = true;
@@ -30,3 +31,19 @@ public:
 		return res;
     }
 };
+
+
+
+
+/*
+
+一文让你彻底明白马拉车算法 - windliang的文章 - 知乎
+https://zhuanlan.zhihu.com/p/70532099
+
+
+(R-1) - (L+1) + 1
+
+= R - L - 1
+
+
+*/

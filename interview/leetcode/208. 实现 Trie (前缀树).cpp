@@ -6,6 +6,10 @@
 // https://leetcode-cn.com/problems/implement-trie-prefix-tree/solution/shi-xian-trie-qian-zhui-shu-by-leetcode/151430
 
 
+// https://leetcode-cn.com/leetbook/read/trie/x04fw7/
+
+// https://leetcode-cn.com/leetbook/detail/trie/
+
 
 // 执行用时：
 // 108 ms

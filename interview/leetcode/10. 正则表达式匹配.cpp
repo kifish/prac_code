@@ -32,7 +32,7 @@ https://leetcode-cn.com/problems/regular-expression-matching/solution/dong-tai-g
 
 字母 + 星号的组合在匹配的过程中，本质上只会有两种情况：
 
-匹配 ss 末尾的一个字符，将该字符扔掉，而该组合还可以继续进行匹配；
+匹配 s 末尾的一个字符，将该字符扔掉，而该组合还可以继续进行匹配；
 
 不匹配字符，将该组合扔掉，不再进行匹配。
 
@@ -424,7 +424,7 @@ public:
 
 
     bool matches(const string & s, int i_th, const string & p, int j_th){ // 数学意义上的第i个第j个
-        // i_th >= 1 ; j_th>=1
+        // i_th >= 1 ; j_th >= 1
         if(p[j_th-1] == '.' || s[i_th - 1] == p[j_th - 1]){
             return true;
         }
@@ -447,8 +447,8 @@ public:
         // aab
         // c*a*b
         // dp[0][0-2] 都应该是true
-        for(int i = 0;i<=m;i++){ // 需要从i=0开始更新, 而不是i=1
-            for(int j = 1;j<=n;j++){
+        for(int i = 0; i<=m; i++){ // 需要从i=0开始更新, 而不是i=1
+            for(int j = 1; j<=n; j++){
                 if(get_k_th_char(p,j) != '*'){
                     if(i > 0 && matches(s,i,p,j)){
                         dp[i][j] = dp[i-1][j-1];
@@ -468,8 +468,8 @@ public:
                             // https://leetcode-cn.com/problems/regular-expression-matching/solution/zheng-ze-biao-da-shi-pi-pei-by-leetcode-solution/452856
 
                             // 仔细理解下面这段话: 
-                            // 字母 + 星号的组合在匹配的过程中，本质上只会有两种情况：
-                            // 匹配 ss 末尾的一个字符，将该字符扔掉，而该组合还可以继续进行匹配；
+                            // 字母 + 星号的组合在匹配的过程中，本质上只会有两种情况:
+                            // 匹配 s 末尾的一个字符，将该字符扔掉，而该组合还可以继续进行匹配;
                             // 不匹配字符，将该组合扔掉，不再进行匹配。
 
                         }
