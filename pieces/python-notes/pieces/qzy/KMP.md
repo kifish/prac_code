@@ -121,7 +121,7 @@ def kmp_matching2(target, pattern, pnext):
         if match_len == -1 or target[t_idx] == pattern[match_len]:
             t_idx, match_len = t_idx + 1, match_len + 1
         else:
-            match_len = pnext[match_len]
+            match_len = pnext[match_len] # pnext其实维护了一个映射关系; f(当前已匹配的长度) = 之前最长的匹配长度
     if match_len == m:
         return t_idx - match_len
     return -1
@@ -133,7 +133,7 @@ def genPNext0(p):
         while k >= 0 and p[i] != p[k]:
             k = pnext[k]
         i,k = i+1,k+1
-        pnext[i] = k #set a pnext entry
+        pnext[i] = k #set a pnext entry; pnext[1] = 0;pnext[0] = -1; i 代表的是当前已匹配的长度
     return pnext
 
 text = 'ababcabcacbab'
@@ -160,4 +160,20 @@ print(kmp_matching2(text, pattern, genPNext(pattern)))  # 5
 ```
 
 
+https://colab.research.google.com/drive/1ob0pGnC2JFqrBVjRyAWjwWf5wGLLk1VQ
+
+
+```python
+def genPNext0(p):
+    i,k,m = 0,-1,len(p)
+    pnext = [-1] * m 
+    while i < m - 1:  # generate pnext[i+1],前向dp
+        while k >= 0 and p[i] != p[k]:
+            k = pnext[k]
+        i,k = i+1,k+1
+        pnext[i] = k #set a pnext entry; pnext[1] = 0;pnext[0] = -1; i 代表的是当前已匹配的长度
+    return pnext
+
+pattern = 'abcac'
+```
 
