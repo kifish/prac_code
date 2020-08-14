@@ -1,3 +1,11 @@
+/*
+
+根据前序遍历确定根节点即第一个节点
+
+
+*/
+
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
