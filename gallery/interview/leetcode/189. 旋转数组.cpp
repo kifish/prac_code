@@ -7,5 +7,8 @@ https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leet
 
 移位, 以前做过类似的题。
 
+gallery/模拟/加密/密码.md
+
+gallery/pat/pat-a/1067.md
 
 */
