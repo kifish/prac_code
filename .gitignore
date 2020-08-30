@@ -9,8 +9,6 @@ buf
 
 
 # buf
-pieces/图片预处理/show_mean.py
-pieces/图片预处理/show_mean.ipynb
 
 # visual studio
 *.user
