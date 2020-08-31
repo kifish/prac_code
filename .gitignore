@@ -4,7 +4,11 @@ Untitled.ipynb
 buf
 
 .VSCodeCounter
+.ipynb_checkpoints
+.idea
 
+
+# buf
 
 # visual studio
 *.user
