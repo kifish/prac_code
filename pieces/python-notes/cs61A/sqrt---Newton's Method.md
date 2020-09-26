@@ -1,6 +1,6 @@
 --sqrt.py
 
-
+```PY
 def average(x, y):
     return (x+y)/2
 
@@ -27,10 +27,10 @@ def mysqrt(a):
 
 print(mysqrt(2))
 
-
+```
 ----newton.py
 
-
+```PY
 def improve(update, close, guess=1):
     while not close(guess):
         guess = update(guess)
@@ -82,3 +82,4 @@ print(square_root_newton(64))
 print(nth_root_of_a(2, 64))
 print(nth_root_of_a(3, 64))
 print(nth_root_of_a(6, 64))
+```
