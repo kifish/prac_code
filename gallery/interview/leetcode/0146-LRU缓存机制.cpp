@@ -20,8 +20,8 @@ class LRUCache
 {
 private:
     int cap;
-    list<pair<int,int>> l;
-    unordered_map<int,list<pair<int,int>>::iterator> m;
+    list<pair<int,int>> l; // [(key1,val1),(key2,val2),...,(keyn,valn)]
+    unordered_map<int,list<pair<int,int>>::iterator> m; // key2position
 public:
     LRUCache(int capacity)
     {   
@@ -33,6 +33,11 @@ public:
         unordered_map<int,list<pair<int,int>>::iterator>::iterator it = m.find(key);
         if(it == m.end()) return -1;
         l.splice(l.begin(),l,it->second);
+        /*
+        把该节点从当前位置移到list的开始位置
+        http://www.cplusplus.com/reference/list/list/splice/
+        The second version (2) transfers only the element pointed by i from x into the container.
+        */
         return it->second->second;
     }
 
