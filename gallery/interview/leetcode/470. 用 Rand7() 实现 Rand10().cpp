@@ -35,3 +35,21 @@ public:
         }
     }
 };
+
+
+/*
+
+
+rand1() 模拟 rand5()
+0-1
+
+0-4
+0-9
+0-14
+
+这里的情况可能和rand7模拟rand10不同
+rand7模拟2次，一定可以通过拒绝采样模拟rand10
+
+https://kifish.visualstudio.com/_git/interview?path=%2F%E4%BA%AC%E4%B8%9C%E4%BA%8C%E9%9D%A2.md&_a=preview
+
+*/
