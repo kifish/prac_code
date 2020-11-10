@@ -44,3 +44,5 @@ Bellman ford可以理解为要循环n-1次。之后可判负环。
 
 
 
+计算器:
+https://docs.google.com/document/d/19lOeP2_-kDT9DPUpeZ0u_TEPHnbMlXKSF8GoCXI0Zkg/edit
