@@ -49,7 +49,7 @@ void dfs_v2(vector<int> nums, vector<int> & path){
         return;
     }
 
-    for(int i = 0; i< nums.size(); i++){
+    for(int i = 0; i < nums.size(); i++){
         path.push_back(nums[i]);
         dfs_v2(nums, path);
         path.pop_back();
@@ -75,9 +75,13 @@ void dfs_v3(vector<int> nums, vector<int> & path){
         return;
     }
 
-    for(int i = 0; i< nums.size(); i++){
+    for(int i = 0; i < nums.size(); i++){
+        if(nums[i] == 2 && path.size() && path.back() == 2){
+            continue;
+        }
+
         path.push_back(nums[i]);
-        dfs_v2(nums, path);
+        dfs_v3(nums, path);
         path.pop_back();
     }
 
@@ -108,9 +112,12 @@ int main(){
 
     cout<<"output:"<<endl;
     // dfs(0, nums, path);
-    permutation_v2();
+
+    // permutation_v2();
     // n^n
 
+    permutation_v3();
+    
 
     cout<<"total_path_cnt: "<<total_path_cnt<<endl;
     return 0;
