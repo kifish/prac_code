@@ -6,7 +6,7 @@ private:
     map<string, map<string,int>> M;
     int edge_n;
 public:
-    //ÕâµÀÌâ²»ÊÇÍØÆËÅÅĞò£¬ÒòÎª¿ÉÄÜ´æÔÚ»·;ÇóµÄÊÇÅ·À­Â·¾¶,»úÆ±Ïàµ±ÓÚ±ßÊı£¬Òò´Ë×îÖÕ¾­¹ıµÄ½ÚµãÊı(°üÀ¨Æğµã)±Ø¶¨ÊÇ»úÆ±Êı+1
+    //è¿™é“é¢˜ä¸æ˜¯æ‹“æ‰‘æ’åºï¼Œå› ä¸ºå¯èƒ½å­˜åœ¨ç¯;æ±‚çš„æ˜¯æ¬§æ‹‰è·¯å¾„,æœºç¥¨ç›¸å½“äºè¾¹æ•°ï¼Œå› æ­¤æœ€ç»ˆç»è¿‡çš„èŠ‚ç‚¹æ•°(åŒ…æ‹¬èµ·ç‚¹)å¿…å®šæ˜¯æœºç¥¨æ•°+1
     vector<string> findItinerary(vector<vector<string>> &tickets)
     {   
         edge_n = tickets.size();
@@ -25,7 +25,7 @@ public:
             return;
         }
         string u = cur_path.back();
-        for(auto &item: M[u]){ //Òª¼ÓÒıÓÃ²ÅÄÜĞŞ¸Ä
+        for(auto &item: M[u]){ //è¦åŠ å¼•ç”¨æ‰èƒ½ä¿®æ”¹
             if(item.second > 0){
                 cur_path.push_back(item.first);
                 item.second--;
