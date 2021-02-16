@@ -1,3 +1,9 @@
+```BASH
+ls -lR gallery/interview/leetcode/ |grep "^-"|wc -l
+
+ls -lR gallery/interview/ |grep "^-"|wc -l
+
+```
 
 
 翻转链表
