@@ -1,9 +1,10 @@
 --sqrt.py
-
+<!-- http://composingprograms.com/pages/16-higher-order-functions.html#example-newton-s-method
+ -->
+ 
 ```PY
 def average(x, y):
     return (x+y)/2
-
 
 def improve(update, close, guess=1):
     while not close(guess):
@@ -18,7 +19,7 @@ def approx_eq(x, y, tolerance=1e-3):
 def mysqrt(a):
     def sqrt_update(x):
         return average(x, a / x)
-    #x*a/x  = a
+    # x * a / x  = a
 
     def sqrt_close(x):
         return approx_eq(x*x, a)
@@ -43,7 +44,7 @@ def approx_eq(x, y, tolerance=1e-3):
 
 def newton_update(f, df):
     def update(x):
-        return x - f(x)/df(x)
+        return x - f(x) / df(x)
     return update
 
 
@@ -59,6 +60,7 @@ def square_root_newton(a):
 
     def df(x):
         return 2*x
+
     return find_zero(f, df)
 
 

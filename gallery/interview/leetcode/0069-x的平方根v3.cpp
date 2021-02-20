@@ -61,6 +61,11 @@ using namespace std;
 // https://leetcode-cn.com/problems/sqrtx/solution/er-fen-cha-zhao-niu-dun-fa-python-dai-ma-by-liweiw/
 // https://www.jianshu.com/p/db8d4e743e3c
 // https://leetcode-cn.com/submissions/detail/146826133/
+// https://leetcode-cn.com/problems/sqrtx/solution/er-fen-cha-zhao-niu-dun-fa-python-dai-ma-by-liweiw/392777
+// https://leetcode-cn.com/problems/sqrtx/solution/er-fen-cha-zhao-niu-dun-fa-python-dai-ma-by-liweiw/392815
+
+
+
 
 // 精度这里有坑
 
