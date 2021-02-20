@@ -61,7 +61,7 @@ https://leetcode-cn.com/problems/trapping-rain-water/solution/jie-yu-shui-by-lee
 // 100.00%
 // 的用户
 
-
+// 双向DP
 class Solution {
 public:
     int trap(vector<int>& height) {

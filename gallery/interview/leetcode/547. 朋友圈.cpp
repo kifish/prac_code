@@ -15,6 +15,10 @@ dfs 联通分量
 
 应该都可以
 
+新名字 
+547. 省份数量
+
+https://leetcode-cn.com/problems/number-of-provinces/
 
 
 

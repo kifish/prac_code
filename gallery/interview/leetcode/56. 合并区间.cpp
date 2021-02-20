@@ -29,6 +29,7 @@ public:
     static bool cmp(const vector<int> & a, const vector<int> & b){
         return a[0] < b[0]; // 按左端点从小到大排序
     }
+    
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         vector<vector<int>> ret;
         int cur_right = 1<<31; // 最小的int

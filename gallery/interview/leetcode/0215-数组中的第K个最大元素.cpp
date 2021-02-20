@@ -11,13 +11,19 @@
 //     }
 // };
 
+// https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
+
+// https://leetcode-cn.com/explore/interview/card/bytedance/243/array-and-sorting/1018/
+
+
+
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k){
-        int m = (int)nums.size() -k;
-        int lo = 0,hi = (int)nums.size() -1;
+        int m = (int)nums.size() - k;
+        int lo = 0, hi = (int)nums.size() -1;
         // int mid = (lo + hi) / 2;
-        while(lo<=hi){
+        while(lo <= hi){
             int idx = partition(nums,lo,hi);
             if(m < idx){
                 hi = idx - 1;

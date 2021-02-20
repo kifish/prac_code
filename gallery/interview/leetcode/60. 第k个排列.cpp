@@ -6,8 +6,14 @@ https://leetcode-cn.com/problems/permutation-sequence/
 https://leetcode-cn.com/explore/interview/card/bytedance/243/array-and-sorting/1021/
 
 
-
+数学解法
 https://leetcode-cn.com/problems/permutation-sequence/solution/chun-shu-xue-jie-fa-by-arthurpatten/
+
+回溯解法:
+https://leetcode-cn.com/problems/permutation-sequence/solution/shou-hua-tu-jie-jing-dian-de-dfshui-su-shu-xue-gui/
+
+
+新名字: 60. 排列序列
 
 
 */
@@ -33,6 +39,7 @@ public:
         }
         cout<<endl;
     }
+
     string getPermutation(int n, int k) {
         vector<int> fac(n+1,0);
         fac[0] = 1;
