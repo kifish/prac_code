@@ -17,8 +17,8 @@ public:
         for(int i = 0; i < nums.size(); i++){
             int num = nums[i];
             if(sum + num < 0){ //这个判断比较关键
-                sum = 0;
-                max_sum = max(max_sum, num);
+                sum = 0; 
+                max_sum = max(max_sum, num); // 这里也有可能会更新; case: [-2,-1]
             }
             else{
                 sum += num;
@@ -28,3 +28,6 @@ public:
         return max_sum;
     }
 };
+
+
+

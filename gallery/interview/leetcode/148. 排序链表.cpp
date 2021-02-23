@@ -148,3 +148,8 @@ public:
 
 
 // 如果是要O(1)的空间则不能使用递归, 这个写起来比较麻烦之后复习下。
+
+// 如果要用快排来给链表排序呢? TODO
+
+// https://leetcode-cn.com/problems/sort-list/solution/python-by-scut_dell/
+
