@@ -1,5 +1,6 @@
 /*
 
+数据结构
 
 https://leetcode-cn.com/problems/lfu-cache/solution/lfuhuan-cun-by-leetcode-solution/
 
