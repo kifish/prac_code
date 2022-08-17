@@ -11,6 +11,7 @@ gallery\interview\剑指offer\剑指 Offer 24. 反转链表.cpp
 
 */
 
+// AC
 
 /**
  * Definition for singly-linked list.
@@ -23,7 +24,20 @@ gallery\interview\剑指offer\剑指 Offer 24. 反转链表.cpp
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
+        if(head == nullptr){
+            return head;
+        }
 
+        ListNode* prev_ptr = nullptr;
+        ListNode* cur_ptr = head;
+        ListNode* next_ptr = nullptr;
+        while (cur_ptr){
+            next_ptr = cur_ptr->next;
+            cur_ptr->next = prev_ptr;
+            prev_ptr = cur_ptr;
+            cur_ptr = next_ptr;
+        }
+        return prev_ptr;
     }
 };
 
