@@ -11,6 +11,6 @@ https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/comments/38847
 超级丑数！
 
 
-
+https://leetcode.cn/problems/find-k-pairs-with-smallest-sums/solutions/81101/8ms-100ji-lu-wei-zhi-zhi-zhen-kuai-su-qiu-jie-by-d
 
 */
