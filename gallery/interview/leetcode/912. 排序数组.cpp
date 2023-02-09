@@ -123,7 +123,6 @@ public:
     }
     */
 
-    /*
     int partition(vector<int> & nums, int lo, int hi){
         if(lo >= hi) return lo;
         swap(nums[lo], nums[rand() % (hi - lo + 1) + lo]);
@@ -147,13 +146,39 @@ public:
         return pivot_idx;
     }
 
+    /*
+    // WA
+    int partition(vector<int> & nums, int lo, int hi){
+        if(lo >= hi) return lo;
+        swap(nums[lo], nums[rand() % (hi - lo + 1) + lo]);
+        int i = lo; // WA: i = lo + 1
+        int j = hi;
+        int pivot_idx = lo;
+        while(i < j){
+            // WA: i++, j--
+            while(nums[i] < nums[pivot_idx] && i <= j) i++; // WA: i < j
+            while(nums[j] > nums[pivot_idx] && i <= j) j--; // WA: i < j
+            if(i < j){
+                swap(nums[i], nums[j]);
+                // WA: i++, j--
+            }
+            else{
+                break;
+            }
+        }
+        swap(nums[pivot_idx], nums[j]);
+        pivot_idx = j;
+        return pivot_idx;
+    }
+    */
+
     void quick_sort(vector<int> & nums, int lo, int hi){
         if(lo >= hi) return;
         int pivot_idx = partition(nums, lo, hi);
         quick_sort(nums, lo, pivot_idx - 1);
         quick_sort(nums, pivot_idx + 1, hi);
     }
-    */
+    
 
     /*
     pair<int, int> partition(vector<int> & nums, int lo, int hi){
