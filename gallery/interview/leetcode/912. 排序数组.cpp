@@ -97,69 +97,98 @@ public:
         merge_sort(nums, 0, int(nums.size() - 1));
     }
 
+    /* 
     // 在数组中有很多重复元素的情况下，时间复杂度会退化到O(N^2)
-    // int partition(vector<int> & nums, int lo, int hi){
-    //     if(lo >= hi) return lo;
-    //     swap(nums[lo], nums[rand() % (hi - lo + 1) + lo]);
-    //     int i = lo;
-    //     int j = hi + 1;
-    //     int pivot_idx = lo;
-    //     while(i < hi && j > lo && i < j){
-    //         i++;
-    //         j--;
-    //         while(nums[i] < nums[pivot_idx] && i < hi) i++;
-    //         while(nums[j] > nums[pivot_idx] && j > lo) j--;
-    //         if(i < j){
-    //             swap(nums[i], nums[j]);
-    //         }
-    //         else{
-    //             break;
-    //         }
-    //     }
-    //     swap(nums[pivot_idx], nums[j]);
-    //     pivot_idx = j;
-    //     return pivot_idx;
-    // }
+    int partition(vector<int> & nums, int lo, int hi){
+        if(lo >= hi) return lo;
+        swap(nums[lo], nums[rand() % (hi - lo + 1) + lo]);
+        int i = lo;
+        int j = hi + 1;
+        int pivot_idx = lo;
+        while(i < hi && j > lo && i < j){
+            i++;
+            j--;
+            while(nums[i] < nums[pivot_idx] && i < hi) i++;
+            while(nums[j] > nums[pivot_idx] && j > lo) j--;
+            if(i < j){
+                swap(nums[i], nums[j]);
+            }
+            else{
+                break;
+            }
+        }
+        swap(nums[pivot_idx], nums[j]);
+        pivot_idx = j;
+        return pivot_idx;
+    }
+    */
 
-    // void quick_sort(vector<int> & nums, int lo, int hi){
-    //     if(lo >= hi) return;
-    //     int pivot_idx = partition(nums, lo, hi);
-    //     quick_sort(nums, lo, pivot_idx - 1);
-    //     quick_sort(nums, pivot_idx + 1, hi);
-    // }
+    /*
+    int partition(vector<int> & nums, int lo, int hi){
+        if(lo >= hi) return lo;
+        swap(nums[lo], nums[rand() % (hi - lo + 1) + lo]);
+        int i = lo;
+        int j = hi + 1;
+        int pivot_idx = lo;
+        while(i < j){
+            i++;
+            j--;
+            while(nums[i] < nums[pivot_idx] && i <= j && i < hi) i++; // WA: i < j; WA: i <= j
+            while(nums[j] > nums[pivot_idx] && i <= j) j--; // WA: i < j
+            if(i < j){
+                swap(nums[i], nums[j]);
+            }
+            else{
+                break;
+            }
+        }
+        swap(nums[pivot_idx], nums[j]);
+        pivot_idx = j;
+        return pivot_idx;
+    }
 
-    // pair<int, int> partition(vector<int> & nums, int lo, int hi){
-    //     if(lo >= hi) return make_pair(lo, hi);
-    //     int lt = lo; // less_than_the_pivot_num_idx (- 1)
-    //     int gt = hi; // greater_than_the_pivot_num_idx (+ 1)
-    //     int i = lo + 1; // or i = lo
-    //     swap(nums[lo], nums[rand() % (hi - lo + 1) + lo]);
-    //     int pivot = nums[lo];
-    //     while(i <= gt){
-    //         if(nums[i] < pivot){
-    //             swap(nums[i], nums[lt]);
-    //             i++;
-    //             lt++;
-    //         }
-    //         else if(nums[i] > pivot){
-    //             swap(nums[i], nums[gt]);
-    //             gt--;
-    //         }
-    //         else{
-    //             i++;
-    //         }
-    //     }
-    //     return make_pair(lt, gt);
-    // }
+    void quick_sort(vector<int> & nums, int lo, int hi){
+        if(lo >= hi) return;
+        int pivot_idx = partition(nums, lo, hi);
+        quick_sort(nums, lo, pivot_idx - 1);
+        quick_sort(nums, pivot_idx + 1, hi);
+    }
+    */
 
-    // void quick_sort_3_way(vector<int> & nums, int lo, int hi){
-    //     if(lo >= hi) return;
-    //     pair<int, int> pivot_idxs_pair = partition(nums, lo, hi);
-    //     int lt = pivot_idxs_pair.first;
-    //     int gt = pivot_idxs_pair.second;
-    //     quick_sort_3_way(nums, lo, lt-1);
-    //     quick_sort_3_way(nums, gt + 1, hi);
-    // }
+    /*
+    pair<int, int> partition(vector<int> & nums, int lo, int hi){
+        if(lo >= hi) return make_pair(lo, hi);
+        int lt = lo; // less_than_the_pivot_num_idx (- 1)
+        int gt = hi; // greater_than_the_pivot_num_idx (+ 1)
+        int i = lo + 1; // or i = lo
+        swap(nums[lo], nums[rand() % (hi - lo + 1) + lo]);
+        int pivot = nums[lo];
+        while(i <= gt){
+            if(nums[i] < pivot){
+                swap(nums[i], nums[lt]);
+                i++;
+                lt++;
+            }
+            else if(nums[i] > pivot){
+                swap(nums[i], nums[gt]);
+                gt--;
+            }
+            else{
+                i++;
+            }
+        }
+        return make_pair(lt, gt);
+    }
+
+    void quick_sort_3_way(vector<int> & nums, int lo, int hi){
+        if(lo >= hi) return;
+        pair<int, int> pivot_idxs_pair = partition(nums, lo, hi);
+        int lt = pivot_idxs_pair.first;
+        int gt = pivot_idxs_pair.second;
+        quick_sort_3_way(nums, lo, lt-1);
+        quick_sort_3_way(nums, gt + 1, hi);
+    }
+    */
 
     void quick_sort_3_way(vector<int> & nums, int lo, int hi){
         if(lo >= hi) return;
