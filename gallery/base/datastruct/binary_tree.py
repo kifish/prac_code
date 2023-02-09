@@ -46,8 +46,9 @@ class BinaryTree(object):
         elif val > cur.val:
             cur.right = self.insert_(cur.right,val)
         else:
-            # pass # WA
-            return cur
+            pass # WA: pass and no `return cur`
+            # return cur # WA
+        return cur
 
     def pre_order(self,cur):
         print(cur.val, end = ' ')
@@ -55,12 +56,14 @@ class BinaryTree(object):
             self.pre_order(cur.left)
         elif cur.right:
             self.pre_order(cur.right)
+
     def in_order(self,cur):
         if cur.left:
             self.in_order(cur.left)
         print(cur.val,end = ' ')
         if cur.right:
             self.in_order(cur.right)
+
     def post_order(self,cur):
         if cur.left:
             self.post_order(cur.left)
