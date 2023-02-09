@@ -87,7 +87,7 @@ int partition(vector<int> & nums, int lo, int hi){
     while(i < j){
         i++; 
         j--; 
-        while(nums[i] < pivot && i <= j) i++; // 加了等号会出现bug; 具体如何优化相等的数过多的情况见三路快排
+        while(nums[i] < pivot && i <= j && i < hi) i++; // 加了等号会出现bug; 具体如何优化相等的数过多的情况见三路快排; WA: i <= j
         while(nums[j] > pivot && j >= i) j--; // 加了等号会出现bug; 具体如何优化相等的数过多的情况见三路快排
 
         if(i < j){
