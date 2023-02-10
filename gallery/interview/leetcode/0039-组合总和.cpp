@@ -70,3 +70,36 @@ public:
         return paths;
     }
 };
+
+class Solution {
+    vector<int> m_candidates; // WA: vector<int> candidates;
+    int m_target; // WA: int target;
+    vector<vector<int>> paths;
+public:
+    void dfs(int idx, int cur_sum, vector<int> & path){
+        if(cur_sum == m_target){
+            paths.push_back(path);
+            return;
+        }
+
+        if(cur_sum > m_target){
+            return;
+        }
+        if(idx == m_candidates.size()){
+            return;
+        }
+
+        path.push_back(m_candidates[idx]);
+        dfs(idx, cur_sum + m_candidates[idx], path);
+        path.pop_back();
+        dfs(idx + 1, cur_sum, path);
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        m_candidates = candidates; // WA: candidates = candidates;
+        m_target = target; // WA: target = target;
+        vector<int> path;
+        dfs(0, 0, path);
+        return paths;
+    }
+};
