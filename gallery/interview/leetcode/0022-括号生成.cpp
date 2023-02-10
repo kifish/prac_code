@@ -30,3 +30,29 @@ public:
         return paths;
     }
 };
+
+class Solution {
+    vector<string> paths;
+public:
+    void dfs(string cur_str, int left_p_cnt, int right_p_cnt){
+        if(left_p_cnt == 0 && right_p_cnt == 0){
+            paths.push_back(cur_str);
+            return;
+        }
+
+        if(left_p_cnt > right_p_cnt){
+            return;
+        }
+
+        if(left_p_cnt > 0){
+            dfs(cur_str + "(", left_p_cnt - 1, right_p_cnt);
+        }
+        if(right_p_cnt > 0){
+            dfs(cur_str + ")", left_p_cnt, right_p_cnt -1);
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        dfs("", n, n);
+        return paths;
+    }
+};
