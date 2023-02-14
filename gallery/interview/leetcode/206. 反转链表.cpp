@@ -23,7 +23,17 @@ gallery\interview\剑指offer\剑指 Offer 24. 反转链表.cpp
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
+        if(head == nullptr || head->next == nullptr) return head;
 
+        ListNode* pre = nullptr;
+        ListNode* cur = head;
+        ListNode* tmp;
+        while(cur){
+            tmp = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = tmp;
+        }
+        return pre;
     }
 };
-
