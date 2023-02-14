@@ -77,7 +77,7 @@ https://leetcode-cn.com/problems/number-of-provinces/
 // 9.09%
 // 的用户
 
-
+// dfs
 class Solution {
 public:
     int m,n;
@@ -109,5 +109,86 @@ public:
         n = M[0].size();// 实际上m == n
         visited = vector<bool> (m, false);
         return dfs_search(M);
+    }
+};
+
+// floyd
+class Solution {
+    vector<bool> visited;
+    vector<vector<bool>> graph = vector<vector<bool>>(205, vector<bool>(205, false));
+public:
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        if(isConnected.size() == 0) return 0;
+
+        int n = isConnected.size();
+        for(int i = 0; i < n; i++){
+            graph[i][i] = true;
+        }
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                graph[i][j] = graph[i][j] || isConnected[i][j];
+                graph[j][i] = graph[j][i] || graph[i][j];
+            }
+        }
+
+        for(int k = 0; k < n; k++){
+            for(int i = 0; i < n; i++){
+                for(int j = 0; j < n; j++){
+                    graph[i][j] = graph[i][j] || (graph[i][k] && graph[k][j]); // WA: graph[i][j] = graph[i][j] || (isConnected[i][k] && isConnected[k][j])
+                    graph[j][i] = graph[j][i] || graph[i][j];
+                }
+            }
+        }
+
+        visited.resize(n, false);
+        int cnt = 0;
+        for(int i = 0; i < n; i++){
+            if(visited[i]){
+                continue;
+            }
+            visited[i] = true;
+            cnt++;
+            for(int j = i + 1; j < n; j++){
+                if((graph[i][j]) && !visited[j]){
+                    visited[j] = true;
+                }
+            }
+        }
+        return cnt;
+    }
+};
+
+// floyd
+class Solution {
+    vector<bool> visited;
+public:
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        if(isConnected.size() == 0) return 0;
+
+        int n = isConnected.size();
+        for(int k = 0; k < n; k++){
+            for(int i = 0; i < n; i++){
+                for(int j = 0; j < n; j++){
+                    isConnected[i][j] = isConnected[i][j] || (isConnected[i][k] && isConnected[k][j]);
+                    isConnected[j][i] = isConnected[j][i] || isConnected[i][j];
+                }
+            }
+        }
+
+        visited.resize(n, false);
+        int cnt = 0;
+        for(int i = 0; i < n; i++){
+            if(visited[i]){
+                continue;
+            }
+            visited[i] = true;
+            cnt++;
+            for(int j = i + 1; j < n; j++){
+                if(isConnected[i][j] && !visited[j]){
+                    visited[j] = true;
+                }
+            }
+        }
+        return cnt;
     }
 };
