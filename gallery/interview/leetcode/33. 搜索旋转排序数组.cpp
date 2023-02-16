@@ -1,16 +1,10 @@
-
 /*
-
 你的算法时间复杂度必须是 O(log n) 级别。
-
 https://leetcode-cn.com/problems/search-in-rotated-sorted-array/solution/yi-wen-jie-jue-4-dao-sou-suo-xuan-zhuan-pai-xu-s-2/
-
 
 https://leetcode-cn.com/problems/search-in-rotated-sorted-array/
 
 https://leetcode-cn.com/explore/interview/card/bytedance/243/array-and-sorting/1017/
-
-
 
 示例 1:
 输入: nums = [4,5,6,7,0,1,2], target = 0
@@ -19,15 +13,7 @@ https://leetcode-cn.com/explore/interview/card/bytedance/243/array-and-sorting/1
 
 输入: nums = [4,5,6,7,0,1,2], target = 3
 输出: -1
-
-
-
-
 */
-
-
-
-
 
 // 执行用时 :
 // 0 ms
@@ -71,8 +57,8 @@ https://leetcode-cn.com/explore/interview/card/bytedance/243/array-and-sorting/1
 //             }
 //             else{ // nums[lo] > nums[mid]
 //                 // 说明不连续点已经在lo-mid之间出现过了
-//                 // 也就说明nums[mid+1-hi] 
-                
+//                 // 也就说明nums[mid-hi] 这个范围保证递增
+
 //                 if(nums[mid] < target && target <= nums[hi]){
 //                     // cout<<"change lo from "<<lo <<" to "<<mid+1<<endl;
 //                     lo = mid + 1;
@@ -86,7 +72,6 @@ https://leetcode-cn.com/explore/interview/card/bytedance/243/array-and-sorting/1
 //         return -1;
 //     }
 // };
-
 
 
 /*
@@ -172,15 +157,10 @@ public:
     return -1;
     }
 };
-
-
-
 */
 
 
 /*
-
-
 执行结果：
 通过
 显示详情
@@ -275,6 +255,58 @@ public:
     }
 };
 
-
-
 */
+
+/*
+分情况讨论:
+情况1
+        r
+    m
+l
+
+情况2
+    m
+l       r
+
+情况3
+l       r
+    m
+
+情况4, 不可能出现
+l   
+    m
+        r
+*/
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int lo = 0;
+        int hi = int(nums.size() - 1);
+        while(lo <= hi){
+            int mid = (lo + hi) / 2;
+            if(nums[mid] == target){
+                return mid;
+            }
+            else{
+                if(nums[mid] >= nums[lo]){ // 情况1和2
+                    if(nums[lo] <= target && target < nums[mid]){
+                        hi = mid - 1;
+                    }
+                    else{
+                        lo = mid + 1;
+                    }
+                }
+                else{ // 情况3
+                    if(nums[mid] < target && target <= nums[hi]){
+                        lo = mid + 1;
+                    }
+                    else{
+                        hi = mid - 1;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
