@@ -11,8 +11,8 @@
 //         {
 //             int mid = (lo + hi) / 2;
 //             if(nums[mid] < target){
-//                 lo = mid; // Ñ­»·²»±äÁ¿£¬lo±íÊ¾Ğ¡ÓÚtargetµÄÊıÖĞ×î´óµÄÊıµÄindex
-//             }              //¶øhiµÄ´æÔÚµÄÒâÒåÖ»ÊÇÎªÁË°ïÖúËÑË÷lo
+//                 lo = mid; // å¾ªç¯ä¸å˜é‡ï¼Œloè¡¨ç¤ºå°äºtargetçš„æ•°ä¸­æœ€å¤§çš„æ•°çš„index
+//             }              //è€Œhiçš„å­˜åœ¨çš„æ„ä¹‰åªæ˜¯ä¸ºäº†å¸®åŠ©æœç´¢lo
 //             else hi = mid;
 //         }
 //         if(lo + 1 < nums.size() && nums[lo + 1] == target)
@@ -31,8 +31,8 @@
 //             if(nums[mid] > target){
 //                 hi = mid;
 //             }
-//             else lo = mid + 1; // Ñ­»·²»±äÁ¿£¬hi±íÊ¾´óÓÚtargetµÄÊıÖĞ×îĞ¡µÄÊıµÄindex
-//             // ¶øloµÄ´æÔÚµÄÒâÒåÖ»ÊÇÎªÁË°ïÖúËÑË÷hi
+//             else lo = mid + 1; // å¾ªç¯ä¸å˜é‡ï¼Œhiè¡¨ç¤ºå¤§äºtargetçš„æ•°ä¸­æœ€å°çš„æ•°çš„index
+//             // è€Œloçš„å­˜åœ¨çš„æ„ä¹‰åªæ˜¯ä¸ºäº†å¸®åŠ©æœç´¢hi
 //         }
 //         if(hi - 1 >= 0 && nums[hi - 1] == target)
 //             return (hi - 1);
@@ -53,7 +53,7 @@
 // };
 
 
-// ´ËÌâË¼Â·²»ÄÑ£¬µ«ÊÇ¶ş·ÖµÄÏ¸½Ú»¹ÊÇºÜÂé·³µÄ£¬ĞèÒªÏëÇå³ş²ÅÄÜac
+// æ­¤é¢˜æ€è·¯ä¸éš¾ï¼Œä½†æ˜¯äºŒåˆ†çš„ç»†èŠ‚è¿˜æ˜¯å¾ˆéº»çƒ¦çš„ï¼Œéœ€è¦æƒ³æ¸…æ¥šæ‰èƒ½ac
 
 class Solution {
 public:
@@ -65,10 +65,10 @@ public:
         while (lo + 1< hi)
         {
             int mid = (lo + hi) / 2;
-            if(nums[mid] < target){ // ÒòÎª×îÖÕÒªÇóµÄÊÇloµÄÖµ£¬ÏÈ×öÕâ¸öÅĞ¶ÏÔÙ¿¼ÂÇÈçºÎÊ¹µÃlo±Æ½üÕıÈ·µÄÖµ
-                lo = mid; // Ñ­»·²»±äÁ¿£¬lo±íÊ¾Ğ¡ÓÚtargetµÄÊıÖĞ×î´óµÄÊıµÄindex
-            }              //¶øhiµÄ´æÔÚµÄÒâÒåÖ»ÊÇÎªÁË°ïÖúËÑË÷lo
-            else hi = mid; // Èç¹ûmid -1 ¿ÉÄÜ»á´í¹ıÕıÈ·µÄ½â
+            if(nums[mid] < target){ // å› ä¸ºæœ€ç»ˆè¦æ±‚çš„æ˜¯loçš„å€¼ï¼Œå…ˆåšè¿™ä¸ªåˆ¤æ–­å†è€ƒè™‘å¦‚ä½•ä½¿å¾—loé€¼è¿‘æ­£ç¡®çš„å€¼
+                lo = mid; // å¾ªç¯ä¸å˜é‡ï¼Œloè¡¨ç¤ºå°äºtargetçš„æ•°ä¸­æœ€å¤§çš„æ•°çš„index
+            }              //è€Œhiçš„å­˜åœ¨çš„æ„ä¹‰åªæ˜¯ä¸ºäº†å¸®åŠ©æœç´¢lo
+            else hi = mid; // å¦‚æœmid -1 å¯èƒ½ä¼šé”™è¿‡æ­£ç¡®çš„è§£
         }
         if(lo + 1 < nums.size() && nums[lo + 1] == target)
             return (lo + 1);
@@ -82,12 +82,12 @@ public:
         while (lo + 1 < hi)
         {
             int mid = (lo + hi) / 2;
-            if(nums[mid] > target){ // ÒòÎª×îÖÕÒªÇóµÄÊÇhiµÄÖµ£¬ÏÈ×öÕâ¸öÅĞ¶ÏÔÙ¿¼ÂÇÈçºÎÊ¹µÃhi±Æ½üÕıÈ·µÄÖµ
+            if(nums[mid] > target){ // å› ä¸ºæœ€ç»ˆè¦æ±‚çš„æ˜¯hiçš„å€¼ï¼Œå…ˆåšè¿™ä¸ªåˆ¤æ–­å†è€ƒè™‘å¦‚ä½•ä½¿å¾—hié€¼è¿‘æ­£ç¡®çš„å€¼
                 hi = mid;
             }
-            else lo = mid; // Ñ­»·²»±äÁ¿£¬hi±íÊ¾´óÓÚtargetµÄÊıÖĞ×îĞ¡µÄÊıµÄindex
-            // ¶øloµÄ´æÔÚµÄÒâÒåÖ»ÊÇÎªÁË°ïÖúËÑË÷hi
-            // Èç¹ûmid -1 ¿ÉÄÜ»á´í¹ıÕıÈ·µÄ½â
+            else lo = mid; // å¾ªç¯ä¸å˜é‡ï¼Œhiè¡¨ç¤ºå¤§äºtargetçš„æ•°ä¸­æœ€å°çš„æ•°çš„index
+            // è€Œloçš„å­˜åœ¨çš„æ„ä¹‰åªæ˜¯ä¸ºäº†å¸®åŠ©æœç´¢hi
+            // å¦‚æœmid -1 å¯èƒ½ä¼šé”™è¿‡æ­£ç¡®çš„è§£
         }
         if(hi - 1 >= 0 && nums[hi - 1] == target)
             return (hi - 1);
@@ -104,5 +104,64 @@ public:
             ret2 = binary_search_right(nums,target);
             return {ret1,ret2};
         }
+    }
+};
+
+class Solution {
+public:
+    int binary_search_lower(vector<int> & nums, int target){
+        if(nums.size() == 0) return -1;
+
+        int lo = 0;
+        int hi = int(nums.size() - 1);
+        while(lo < hi){
+            int mid = (lo + hi) / 2; // midåå‘lo
+            if(nums[mid] >= target){
+                hi = mid;
+            }
+            else{
+                lo = mid + 1;
+            }
+        }
+        // loä¸€å®šç­‰äºhi
+        if(nums[lo] == target){
+            return lo;
+        }
+        else{
+            return -1;
+        }
+    }
+
+    int binary_search_upper(vector<int> & nums, int target){
+        if(nums.size() == 0) return -1;
+
+        int lo = 0;
+        int hi = int(nums.size() - 1);
+        while(lo < hi){ // ä½ç½®1
+            int mid = (lo + hi + 1) / 2; // è€ƒè™‘åˆ°ä½ç½®1å’Œä½ç½®2çš„å®ç°, mid = (lo + hi) / 2é¡»æ”¹æˆmid = (lo + hi + 1) / 2, midåå‘hi, å¦åˆ™å¯èƒ½å‡ºç°æ­»å¾ªç¯
+            if(nums[mid] <= target){
+                lo = mid; // ä½ç½®2
+            }
+            else{
+                hi = mid - 1;
+            }
+        }
+        // loä¸€å®šç­‰äºhi
+        if(nums[lo] == target){
+            return lo;
+        }
+        else{
+            return -1;
+        }
+    }
+
+    vector<int> searchRange(vector<int>& nums, int target) {
+        if(nums.size() == 0) return {-1, -1};
+
+        int lo = binary_search_lower(nums, target);
+        if(lo == -1) return {-1, -1};
+
+        int hi = binary_search_upper(nums, target);
+        return {lo, hi};
     }
 };
