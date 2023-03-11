@@ -15,7 +15,7 @@ int pre[MAXN],post[MAXN],inorder[MAXN];
 
 Node* build(int s1,int e1,int s2,int e2){
 //    if(s1 > e1) return NULL; //这样写也对
-    if(s1 -1  == e1) return NULL;
+    if(s1 -1 == e1) return NULL;
     int root_idx;
     for(int i = s2;i<=e2;i++){
         if(inorder[i] == post[e1]){
@@ -23,7 +23,7 @@ Node* build(int s1,int e1,int s2,int e2){
             break;
         }
     }
-    Node* root  = new Node;//Node* root;是不行的
+    Node* root = new Node;//Node* root;是不行的
     root->data = inorder[root_idx];
     root->left = build(s1,s1+root_idx-1-s2,s2,root_idx-1);
     root->right = build(s1+root_idx-s2,e1-1,root_idx+1,e2);

@@ -13,7 +13,7 @@ typedef long long LL;
 
 using namespace std;
 
-//TODO
+// TODO; close
 int main() {
 
 	std::ios::sync_with_stdio(false);
