@@ -1,7 +1,21 @@
 class Solution {
 public:
     int nthSuperUglyNumber(int n, vector<int>& primes) {
-
+        priority_queue<int, vector<int>, greater<int>> current_ugly_numbers;
+        if(n == 0) return -1;
+        int i = 0;
+        current_ugly_numbers.push(1);
+        int current_min_ugly_number;
+        while(i < n){
+            i++;
+            current_min_ugly_number = current_ugly_numbers.top();
+            current_ugly_numbers.pop();
+            for(auto prime : primes){
+                if(prime <= INT_MAX / current_min_ugly_number) current_ugly_numbers.push(prime * current_min_ugly_number);
+                if(current_min_ugly_number % prime == 0) break; // 防止重复的丑数进入队列
+            }
+        }
+        return current_min_ugly_number;
     }
 };
 

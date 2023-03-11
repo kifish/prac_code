@@ -1,6 +1,3 @@
-
-
-
 // https://leetcode-cn.com/problems/daily-temperatures/solution/mei-ri-wen-du-by-leetcode/
 // 栈的方法很巧妙
 
@@ -37,6 +34,28 @@ public:
             }
             next[T[i]] = i;
         }
+        return ret;
+    }
+};
+
+class Solution {
+    stack<int> s;
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        vector<int> ret;
+        for(int i = int(temperatures.size() - 1); i >= 0; i--){
+            while(!s.empty() && temperatures[s.top()] <= temperatures[i]){
+                s.pop();
+            }
+            if(s.empty()){
+                ret.push_back(0);
+            }
+            else{
+                ret.push_back(s.top() - i);
+            }
+            s.push(i);
+        }
+        reverse(ret.begin(), ret.end());
         return ret;
     }
 };

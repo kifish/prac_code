@@ -27,5 +27,46 @@ https://leetcode-cn.com/problems/water-and-jug-problem/solution/hu-dan-long-wei-
 
 
 
+class Solution {
+public:
+    set<int> visited_states;
+    int x,y,z;
 
+    bool canMeasureWater(int jug1Capacity, int jug2Capacity, int targetCapacity) {
+        x = jug1Capacity;
+        y = jug2Capacity;
+        z = targetCapacity;
+        return dfs(0);
+    }
+
+    bool dfs(int total_water){
+        visited_states.insert(total_water);
+        if(total_water == z){
+            return true;
+        }
+        int tmp;
+        bool result = false;
+        if(total_water + x <= x + y){
+             tmp = total_water + x;
+            if(!visited_states.count(tmp)) result |= dfs(tmp);
+            if(result) return true;
+        }
+        if(total_water + y <= x + y){
+            tmp = total_water + y;
+            if(!visited_states.count(tmp)) result |= dfs(tmp);
+            if(result) return true;
+        }
+        if(total_water - x >= 0){
+            tmp = total_water - x;
+            if(!visited_states.count(tmp)) result |= dfs(tmp);
+            if(result) return true;
+        }
+        if(total_water - y >= 0){
+            tmp = total_water - y;
+            if(!visited_states.count(tmp)) result |= dfs(tmp);
+            if(result) return true;
+        }
+        return result;
+    }
+};
 */
